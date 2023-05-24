@@ -9,6 +9,7 @@ import com.example.astronautportfolio.data.local.database.AstronautDatabase
 import com.example.astronautportfolio.data.local.entity.ResultEntity
 import com.example.astronautportfolio.data.mappers.AstronautMapper
 import com.example.astronautportfolio.data.remote.overview.AstronautAPI
+import kotlinx.coroutines.delay
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -38,8 +39,10 @@ class AstronautRemoteMediator (
                     }
                 }
             }
+
+            delay(1500L)
             val astronauts = astronautApi.getAstronauts(
-                limit = loadKey,
+                limit = 10,
                 offset = loadKey
             )
 
