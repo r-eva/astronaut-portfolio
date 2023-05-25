@@ -11,7 +11,7 @@ import com.google.gson.reflect.TypeToken
 class Converters {
 
     @TypeConverter
-    fun fromResultEntity(value: List<ResultEntity>): String? {
+    fun fromResultEntity(value: List<ResultEntity>?): String? {
         return value.let { Gson().toJson(it) }
     }
 

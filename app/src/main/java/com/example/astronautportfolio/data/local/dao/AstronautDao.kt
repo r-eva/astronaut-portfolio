@@ -16,4 +16,5 @@ interface AstronautDao {
 
     @Query("DELETE FROM astronaut")
     suspend fun clearAll()
+
 }

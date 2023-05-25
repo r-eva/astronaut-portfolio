@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.ui.screens.home
+package com.example.astronautportfolio.ui.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -23,7 +23,6 @@ fun AstronautItem (
     astronauts: Result,
     modifier: Modifier = Modifier
 ) {
-    print("data astronaut: $astronauts.profileImageThumbnail")
     Card(
         modifier = modifier
     ) {
@@ -40,7 +39,7 @@ fun AstronautItem (
                     .fillMaxWidth()
                     .padding(dimensionResource(id = R.dimen.padding_small))
                     ){
-                ImageThumbnail(data = astronauts.profileImageThumbnail)
+                ImageThumbnail(data = astronauts.profileImage)
                 BasicInfoCol(name = astronauts.name, age = astronauts.age)
             }
         }

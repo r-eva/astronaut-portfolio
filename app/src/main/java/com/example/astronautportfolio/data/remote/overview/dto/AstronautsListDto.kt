@@ -1,4 +1,6 @@
 package com.example.astronautportfolio.data.remote.overview.dto
+import androidx.room.Embedded
+import com.example.astronautportfolio.data.remote.overview.dto.ResultDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,5 +13,6 @@ data class AstronautsListDto(
     @SerialName("previous")
     val previous: String?,
     @SerialName("results")
+    @Embedded
     val results: List<ResultDto>
 )

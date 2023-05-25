@@ -42,7 +42,7 @@ class AstronautRemoteMediator (
 
             delay(1500L)
             val astronauts = astronautApi.getAstronauts(
-                limit = 10,
+                limit = state.config.pageSize,
                 offset = loadKey
             )
 
@@ -58,11 +58,13 @@ class AstronautRemoteMediator (
             MediatorResult.Success(
                 endOfPaginationReached = astronauts.next.isNullOrBlank()
             )
-
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch(e: HttpException) {
             MediatorResult.Error(e)
         }
+
     }
+
+
 }

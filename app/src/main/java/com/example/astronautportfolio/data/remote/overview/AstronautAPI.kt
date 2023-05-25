@@ -1,6 +1,7 @@
 package com.example.astronautportfolio.data.remote.overview
 
 import com.example.astronautportfolio.data.remote.overview.dto.AstronautsListDto
+import com.example.astronautportfolio.data.remote.overview.dto.ResultDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -8,7 +9,7 @@ interface AstronautAPI {
     @GET("astronaut/")
     suspend fun getAstronauts(
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int?
     ): AstronautsListDto
 
     companion object {

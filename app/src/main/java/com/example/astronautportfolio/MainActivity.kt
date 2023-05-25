@@ -28,15 +28,6 @@ class MainActivity : ComponentActivity() {
                     val astronauts = viewModel.astronautPagingFlow.collectAsLazyPagingItems()
                     HomeScreen(astronauts = astronauts)
                 }
-                // A surface container using the 'background' color from the theme
-                /*Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    val viewModel = hiltViewModel<HomeViewModel>()
-                    val astronauts = viewModel.astronautPagingFlow.collectAsLazyPagingItems()
-                    HomeScreen(astronauts = astronauts)
-                }*/
             }
         }
     }
