@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,6 +15,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
 import androidx.paging.compose.items
 import com.example.astronautportfolio.R
 import com.example.astronautportfolio.model.overview.Result
@@ -43,18 +46,27 @@ fun HomeScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
             ) {
-                items(astronauts) { astronaut ->
-                    if (astronaut != null) {
-                        AstronautItem(astronauts = astronaut, modifier = Modifier.padding(
-                            dimensionResource(id = R.dimen.padding_small)))
+                items(
+                    count = astronauts.itemCount,
+                    key = astronauts.itemKey(),
+                    contentType = astronauts.itemContentType(
+                        )
+                ) { index ->
+                    val item = astronauts[index]
+                    if (item != null) {
+                        AstronautItem(
+                            astronauts = item, modifier = Modifier.padding(
+                                dimensionResource(id = R.dimen.padding_small)
+                            )
+                        )
+                    }
+                            }
+                            item {
+                                if(astronauts.loadState.append is LoadState.Loading) {
+                                    CircularProgressIndicator()
+                                }
+                            }
+                        }
                     }
                 }
-                item {
-                    if(astronauts.loadState.append is LoadState.Loading) {
-                        CircularProgressIndicator()
-                    }
-                }
-            }
-        }
-    }
 }
