@@ -39,7 +39,7 @@ fun AstronautItem (
                     .fillMaxWidth()
                     .padding(dimensionResource(id = R.dimen.padding_small))
                     ){
-                ImageThumbnail(data = astronauts.profileImage)
+                ImageThumbnail(data = astronauts.profileImageThumbnail)
                 BasicInfoCol(name = astronauts.name, age = astronauts.age)
             }
         }
