@@ -13,7 +13,7 @@ data class Agency(
     @SerialName("country_code")
     val countryCode: String?,
     @SerialName("description")
-    val description: String,
+    val description: String?,
     @SerialName("featured")
     val featured: Boolean,
     @SerialName("founding_year")
