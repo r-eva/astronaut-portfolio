@@ -1,35 +1,20 @@
 package com.example.astronautportfolio.data.mappers
 
 import com.example.astronautportfolio.data.local.entity.AgencyEntity
-import com.example.astronautportfolio.data.local.entity.AstronautsListEntity
 import com.example.astronautportfolio.data.local.entity.ResultEntity
 import com.example.astronautportfolio.data.local.entity.StatusEntity
 import com.example.astronautportfolio.data.local.entity.TypeEntity
 import com.example.astronautportfolio.data.remote.overview.dto.AgencyDto
-import com.example.astronautportfolio.data.remote.overview.dto.AstronautsListDto
 import com.example.astronautportfolio.data.remote.overview.dto.ResultDto
 import com.example.astronautportfolio.data.remote.overview.dto.StatusDto
 import com.example.astronautportfolio.data.remote.overview.dto.TypeDto
 import com.example.astronautportfolio.model.overview.Agency
-import com.example.astronautportfolio.model.overview.AstronautsList
 import com.example.astronautportfolio.model.overview.Result
 import com.example.astronautportfolio.model.overview.Status
 import com.example.astronautportfolio.model.overview.Type
 
 
 class AstronautMapper {
-
-    fun mapAstronautsListDtoToEntity(dto: AstronautsListDto): AstronautsListEntity {
-        return  AstronautsListEntity(
-            count = dto.count,
-            next = dto.next,
-            previous = dto.previous,
-            results = dto.results.map { resultDto ->
-                mapResultDtoToEntity(resultDto)
-            }
-        )
-    }
-
 
     fun mapResultDtoToEntity(dto: ResultDto): ResultEntity {
         return ResultEntity(
@@ -88,17 +73,6 @@ class AstronautMapper {
         return TypeEntity(
             id = dto.id,
             name = dto.name
-        )
-    }
-
-    fun mapAstronautsListEntityToAstronautsList(entity: AstronautsListEntity): AstronautsList {
-        return AstronautsList(
-            count = entity.count,
-            next = entity.next,
-            previous = entity.previous,
-            results = entity.results.map { resultEntity ->
-                mapResultEntityToResult(resultEntity)
-            }
         )
     }
 

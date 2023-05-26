@@ -7,8 +7,10 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.astronautportfolio.data.local.database.AstronautDatabase
 import com.example.astronautportfolio.data.local.entity.ResultEntity
+import com.example.astronautportfolio.data.local.entity.paging.PagingRemoteKeys
 import com.example.astronautportfolio.data.mappers.AstronautMapper
 import com.example.astronautportfolio.data.remote.overview.AstronautAPI
+import kotlinx.coroutines.delay
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -19,47 +21,107 @@ class AstronautRemoteMediator (
     private val astronautApi: AstronautAPI
         ): RemoteMediator <Int, ResultEntity>() {
 
+    private val pagingRemoteKeysDao = astronautDb.pagingRemoteKeysDao()
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, ResultEntity>
     ): MediatorResult {
+
         return try {
-            val loadKey = when (loadType) {
-                LoadType.REFRESH -> 0
-                LoadType.PREPEND -> return MediatorResult.Success(
-                    endOfPaginationReached = true
-                )
+            val currentPage = when (loadType) {
+                LoadType.REFRESH -> {
+                    val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
+                    remoteKeys?.nextPage?.minus(1)?: 0
+                }
+                LoadType.PREPEND -> {
+                    val remoteKeys = getRemoteKeyForFirstItem(state)
+                    val prevPage = remoteKeys?.prevPage
+                        ?: return MediatorResult.Success(
+                            endOfPaginationReached = remoteKeys != null
+                        )
+                    prevPage
+                }
                 LoadType.APPEND -> {
-                    val lastItem = state.lastItemOrNull()
-                    if(lastItem == null) {
-                        0
-                    } else {
-                        state.config.pageSize + 10
-                    }
+                    val remoteKeys = getRemoteKeyForLastItem(state)
+                    val nextPage = remoteKeys?.nextPage
+                        ?: return MediatorResult.Success(
+                            endOfPaginationReached = remoteKeys != null
+                        )
+                    nextPage
                 }
             }
+
+            delay(1500L)
             val astronauts = astronautApi.getAstronauts(
-                limit = loadKey,
-                offset = loadKey
+                limit = state.config.pageSize,
+                offset = currentPage
             )
+            val endOfPaginationReached = astronauts.results.isEmpty()
+
+            val prevPage = if (currentPage == 0) null else currentPage - 10
+            val nextPage = if (endOfPaginationReached) null else currentPage + 10
 
             astronautDb.withTransaction {
                 if(loadType == LoadType.REFRESH) {
                     astronautDb.astronautDao().clearAll()
+                    pagingRemoteKeysDao.deleteAllRemoteKeys()
                 }
+
+                val keys = astronauts.results.map { astronautItem ->
+                    PagingRemoteKeys(
+                        id = astronautItem.id,
+                        prevPage = prevPage,
+                        nextPage = nextPage
+                    )
+                }
+
+                pagingRemoteKeysDao.addAllRemoteKeys(remoteKeys = keys)
+
                 val resultEntity = astronauts.results.map { AstronautMapper().mapResultDtoToEntity(it)
                 }
                 astronautDb.astronautDao().upsertAll(resultEntity)
             }
 
+            println("current page: $currentPage")
+            println("astronaut: $astronauts")
+
             MediatorResult.Success(
                 endOfPaginationReached = astronauts.next.isNullOrBlank()
             )
-
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch(e: HttpException) {
             MediatorResult.Error(e)
         }
     }
+
+    private suspend fun getRemoteKeyClosestToCurrentPosition(
+        state: PagingState<Int, ResultEntity>
+    ): PagingRemoteKeys? {
+        return state.anchorPosition?.let { position ->
+            state.closestItemToPosition(position)?.id?.let { id ->
+                pagingRemoteKeysDao.getRemoteKeys(id = id)
+            }
+        }
+    }
+
+    private suspend fun getRemoteKeyForFirstItem(
+        state: PagingState<Int, ResultEntity>
+    ): PagingRemoteKeys? {
+        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
+            ?.let { unsplashImage ->
+                pagingRemoteKeysDao.getRemoteKeys(id = unsplashImage.id)
+            }
+    }
+
+    private suspend fun getRemoteKeyForLastItem(
+        state: PagingState<Int, ResultEntity>
+    ): PagingRemoteKeys? {
+        return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
+            ?.let { unsplashImage ->
+                pagingRemoteKeysDao.getRemoteKeys(id = unsplashImage.id)
+            }
+    }
+
+
 }

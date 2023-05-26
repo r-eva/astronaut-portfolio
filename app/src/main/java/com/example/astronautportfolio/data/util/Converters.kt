@@ -2,16 +2,28 @@ package com.example.astronautportfolio.data.util
 
 import androidx.room.TypeConverter
 import com.example.astronautportfolio.data.local.entity.AgencyEntity
+import com.example.astronautportfolio.data.local.entity.AstronautsListEntity
 import com.example.astronautportfolio.data.local.entity.ResultEntity
 import com.example.astronautportfolio.data.local.entity.StatusEntity
 import com.example.astronautportfolio.data.local.entity.TypeEntity
+import com.example.astronautportfolio.data.remote.overview.dto.AstronautsListDto
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class Converters {
+    @TypeConverter
+    fun fromAstronautListEntity(value: AstronautsListEntity?): String {
+        return value.let { Gson().toJson(it) }
+    }
 
     @TypeConverter
-    fun fromResultEntity(value: List<ResultEntity>): String? {
+    fun toAstronautListEntity(value: String): AstronautsListEntity? {
+        val listType = object : TypeToken<AstronautsListEntity?>() {}.type
+        return value.let { Gson().fromJson(it, listType) }
+    }
+
+    @TypeConverter
+    fun fromResultEntity(value: List<ResultEntity>?): String? {
         return value.let { Gson().toJson(it) }
     }
 

@@ -51,5 +51,5 @@ data class ResultEntity(
     @SerialName("url")
     val url: String,
     @SerialName("wiki")
-    val wiki: String
+    val wiki: String?
 )

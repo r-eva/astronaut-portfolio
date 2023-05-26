@@ -1,4 +1,5 @@
 package com.example.astronautportfolio.model.overview
+import androidx.room.Embedded
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,5 +12,6 @@ data class AstronautsList(
     @SerialName("previous")
     val previous: String?,
     @SerialName("results")
+    @Embedded
     val results: List<Result>
 )

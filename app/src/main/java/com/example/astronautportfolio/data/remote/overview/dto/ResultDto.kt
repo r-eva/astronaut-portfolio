@@ -1,13 +1,17 @@
 package com.example.astronautportfolio.data.remote.overview.dto
 
+import androidx.room.Embedded
+import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResultDto(
     @SerialName("age")
+    @PrimaryKey
     val age: Int,
     @SerialName("agency")
+    @Embedded
     val agency: AgencyDto,
     @SerialName("bio")
     val bio: String,
@@ -38,13 +42,15 @@ data class ResultDto(
     @SerialName("profile_image_thumbnail")
     val profileImageThumbnail: String?,
     @SerialName("status")
+    @Embedded
     val status: StatusDto,
     @SerialName("twitter")
     val twitter: String?,
     @SerialName("type")
+    @Embedded
     val type: TypeDto,
     @SerialName("url")
     val url: String,
     @SerialName("wiki")
-    val wiki: String
+    val wiki: String?
 )
