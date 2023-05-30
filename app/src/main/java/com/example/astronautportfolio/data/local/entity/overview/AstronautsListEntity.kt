@@ -1,16 +1,20 @@
-package com.example.astronautportfolio.data.remote.overview.dto
+package com.example.astronautportfolio.data.local.entity.overview
 import androidx.room.Embedded
-import com.example.astronautportfolio.data.remote.overview.dto.ResultDto
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+
 @Serializable
-data class AstronautsListDto(
+@Entity (tableName = "astronauts_api_result")
+data class AstronautsListEntity(
     @SerialName("count")
+    @PrimaryKey
     val count: Int,
     @SerialName("next")
     val next: String?,
     @SerialName("previous")
     val previous: String?,
     @SerialName("results")
-    val results: List<ResultDto>
+    val results: List<ResultEntity>
 )

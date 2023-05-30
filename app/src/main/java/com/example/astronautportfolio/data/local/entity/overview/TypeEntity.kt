@@ -1,13 +1,13 @@
-package com.example.astronautportfolio.data.local.entity
-
+package com.example.astronautportfolio.data.local.entity.overview
 
 import androidx.room.Entity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+
 @Serializable
 @Entity
-data class StatusEntity(
+data class TypeEntity(
     @SerialName("id")
     val id: Int,
     @SerialName("name")

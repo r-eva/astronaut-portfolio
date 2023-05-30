@@ -1,10 +1,13 @@
-package com.example.astronautportfolio.data.remote.overview.dto
+package com.example.astronautportfolio.data.local.entity.overview
 
+
+import androidx.room.Entity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class TypeDto(
+@Entity
+data class StatusEntity(
     @SerialName("id")
     val id: Int,
     @SerialName("name")

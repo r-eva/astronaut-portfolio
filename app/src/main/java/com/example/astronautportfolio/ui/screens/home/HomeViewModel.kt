@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.example.astronautportfolio.data.local.entity.ResultEntity
-import com.example.astronautportfolio.data.mappers.AstronautMapper
+import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
+import com.example.astronautportfolio.data.mappers.AstronautOverviewMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class HomeViewModel @Inject constructor(
         .flow
         .map { pagingData ->
             pagingData.map {
-                AstronautMapper().mapResultEntityToResult(it)
+                AstronautOverviewMapper().mapResultEntityToResult(it)
             }
         }
         .cachedIn(viewModelScope)

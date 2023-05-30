@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "paging_remote_keys")
-data class PagingRemoteKeys(
+data class PagingRemoteKeysEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val prevPage: Int?,

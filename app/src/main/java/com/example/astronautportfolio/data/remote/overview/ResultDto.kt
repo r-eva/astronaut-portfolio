@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.data.remote.overview.dto
+package com.example.astronautportfolio.data.remote.overview
 
 import androidx.room.Embedded
 import androidx.room.PrimaryKey

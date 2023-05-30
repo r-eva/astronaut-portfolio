@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.data.local.entity
+package com.example.astronautportfolio.data.local.entity.overview
 
 
 import androidx.room.Entity

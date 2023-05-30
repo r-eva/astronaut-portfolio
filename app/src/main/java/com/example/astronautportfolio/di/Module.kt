@@ -6,9 +6,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.example.astronautportfolio.data.local.database.AstronautDatabase
-import com.example.astronautportfolio.data.local.entity.ResultEntity
+import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
 import com.example.astronautportfolio.data.remote.AstronautRemoteMediator
-import com.example.astronautportfolio.data.remote.overview.AstronautAPI
+import com.example.astronautportfolio.data.remote.AstronautAPI
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -17,11 +17,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
+import kotlinx.serialization.json.buildJsonArray
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -68,7 +67,7 @@ object Module {
 
     @Provides
     @Singleton
-    fun provideUnsplashApi(retrofit: Retrofit): AstronautAPI {
+    fun provideAstronautApi(retrofit: Retrofit): AstronautAPI {
         return retrofit.create(AstronautAPI::class.java)
     }
 

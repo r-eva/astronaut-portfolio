@@ -1,20 +1,20 @@
 package com.example.astronautportfolio.data.mappers
 
-import com.example.astronautportfolio.data.local.entity.AgencyEntity
-import com.example.astronautportfolio.data.local.entity.ResultEntity
-import com.example.astronautportfolio.data.local.entity.StatusEntity
-import com.example.astronautportfolio.data.local.entity.TypeEntity
-import com.example.astronautportfolio.data.remote.overview.dto.AgencyDto
-import com.example.astronautportfolio.data.remote.overview.dto.ResultDto
-import com.example.astronautportfolio.data.remote.overview.dto.StatusDto
-import com.example.astronautportfolio.data.remote.overview.dto.TypeDto
+import com.example.astronautportfolio.data.local.entity.overview.AgencyEntity
+import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
+import com.example.astronautportfolio.data.local.entity.overview.StatusEntity
+import com.example.astronautportfolio.data.local.entity.overview.TypeEntity
+import com.example.astronautportfolio.data.remote.overview.AgencyDto
+import com.example.astronautportfolio.data.remote.overview.ResultDto
+import com.example.astronautportfolio.data.remote.overview.StatusDto
+import com.example.astronautportfolio.data.remote.overview.TypeDto
 import com.example.astronautportfolio.model.overview.Agency
 import com.example.astronautportfolio.model.overview.Result
 import com.example.astronautportfolio.model.overview.Status
 import com.example.astronautportfolio.model.overview.Type
 
 
-class AstronautMapper {
+class AstronautOverviewMapper {
 
     fun mapResultDtoToEntity(dto: ResultDto): ResultEntity {
         return ResultEntity(

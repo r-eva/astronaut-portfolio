@@ -1,7 +1,9 @@
 package com.example.astronautportfolio.ui.screens.home
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
@@ -22,9 +25,12 @@ import com.example.astronautportfolio.ui.components.AstronautItem
 
 @Composable
 fun HomeScreen(
-    astronauts: LazyPagingItems<Result>
+    astronauts: LazyPagingItems<Result>,
+    navController: NavController,
+    paddingValues: PaddingValues,
 ) {
     val context = LocalContext.current
+
     LaunchedEffect(key1 = astronauts.loadState) {
         if(astronauts.loadState.refresh is LoadState.Error) {
             Toast.makeText(
@@ -42,7 +48,10 @@ fun HomeScreen(
             )
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize()
+                    .padding(top = paddingValues.calculateTopPadding()),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(
                     count = astronauts.itemCount,
@@ -53,18 +62,20 @@ fun HomeScreen(
                     val item = astronauts[index]
                     if (item != null) {
                         AstronautItem(
-                            astronauts = item, modifier = Modifier.padding(
+                            navController = navController,
+                            astronauts = item,
+                            modifier = Modifier.padding(
                                 dimensionResource(id = R.dimen.padding_small)
                             )
                         )
                     }
-                            }
-                            item {
-                                if(astronauts.loadState.append is LoadState.Loading) {
-                                    CircularProgressIndicator()
-                                }
-                            }
-                        }
+                }
+                item {
+                    if(astronauts.loadState.append is LoadState.Loading) {
+                        CircularProgressIndicator()
                     }
                 }
+            }
+        }
+    }
 }

@@ -1,6 +1,7 @@
-package com.example.astronautportfolio.data.local.entity
+package com.example.astronautportfolio.data.local.entity.overview
 
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.SerialName
