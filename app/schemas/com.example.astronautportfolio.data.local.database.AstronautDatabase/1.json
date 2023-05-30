@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6c6459f94d996079f39634f6c5c2af5e",
+    "identityHash": "066a917d433678b9787c0ee94ffbf068",
     "entities": [
       {
         "tableName": "astronaut",
@@ -213,12 +213,50 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "astronaut_detail_selected",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`flights` TEXT, `id` INTEGER NOT NULL, `landings` TEXT, `spacewalks` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "flights",
+            "columnName": "flights",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "landings",
+            "columnName": "landings",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spacewalks",
+            "columnName": "spacewalks",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6c6459f94d996079f39634f6c5c2af5e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '066a917d433678b9787c0ee94ffbf068')"
     ]
   }
 }

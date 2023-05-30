@@ -42,7 +42,7 @@ fun Navigation(navController: NavHostController, ) {
                         defaultValue = 0 }
             )
         ){ backStackEntry ->
-            DetailScreen(id = backStackEntry.arguments?.getInt("id"))
+            DetailScreen(id = backStackEntry.arguments?.getInt("id")?: 1)
         }
     }
 }

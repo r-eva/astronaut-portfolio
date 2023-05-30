@@ -36,10 +36,10 @@ class AstronautDetailMapper {
                 mapFlightsDtoToEntity(flightDto)
             },
             id = dto.id,
-            landings = dto.landings.map { landingDto ->
+            landings = dto.landings?.map { landingDto ->
                 mapLandingsDtoToEntity(landingDto)
             },
-            spacewalks = dto.spacewalks.map { spacewalkDto ->
+            spacewalks = dto.spacewalks?.map { spacewalkDto ->
                 mapSpaceWalksDtoToEntity(spacewalkDto)
             }
         )
@@ -131,10 +131,10 @@ class AstronautDetailMapper {
                 mapFlightsEntityToModel(flight)
             },
             id = entity.id,
-            landings = entity.landings.map { landing ->
+            landings = entity.landings?.map { landing ->
                 mapLandingsEntityToModel(landing)
             },
-            spacewalks = entity.spacewalks.map { spacewalk ->
+            spacewalks = entity.spacewalks?.map { spacewalk ->
                 mapSpaceWalksEntityToModel(spacewalk)
             }
         )

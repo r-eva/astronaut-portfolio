@@ -14,7 +14,7 @@ data class AstronautDetail(
     @PrimaryKey
     val id: Int,
     @SerializedName("landings")
-    val landings: List<Landing>,
+    val landings: List<Landing>?,
     @SerializedName("spacewalks")
-    val spacewalks: List<Spacewalk>
+    val spacewalks: List<Spacewalk>?
 )
