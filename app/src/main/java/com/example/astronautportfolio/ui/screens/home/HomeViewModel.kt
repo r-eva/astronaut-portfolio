@@ -7,16 +7,16 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
 import com.example.astronautportfolio.data.mappers.AstronautOverviewMapper
+import com.example.astronautportfolio.data.repository.AstronautRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    pager: Pager<Int, ResultEntity>
+    repository: AstronautRepository
 ): ViewModel() {
-    var astronautPagingFlow = pager
-        .flow
+    var astronautPagingFlow = repository.provideAstronautPager()
         .map { pagingData ->
             pagingData.map {
                 AstronautOverviewMapper().mapResultEntityToResult(it)

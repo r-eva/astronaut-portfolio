@@ -15,7 +15,6 @@ import com.example.astronautportfolio.model.overview.Type
 
 
 class AstronautOverviewMapper {
-
     fun mapResultDtoToEntity(dto: ResultDto): ResultEntity {
         return ResultEntity(
             age = dto.age,

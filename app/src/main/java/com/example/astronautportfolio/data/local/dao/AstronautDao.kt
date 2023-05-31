@@ -20,13 +20,4 @@ interface AstronautDao {
     @Query("DELETE FROM astronaut")
     suspend fun clearAll()
 
-    @Query("SELECT * FROM astronaut WHERE id =:id")
-    suspend fun getAstronautDetailById(id: Int): AstronautDetailEntity
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAstronautDetail(astronaut: AstronautDetailEntity)
-
-    @Query("DELETE FROM astronaut_detail_selected")
-    suspend fun deleteAllRemoteKeys()
-
 }

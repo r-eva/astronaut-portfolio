@@ -75,8 +75,7 @@ class AstronautRemoteMediator (
 
                 pagingRemoteKeysDao.addAllRemoteKeys(remoteKeys = keys)
 
-                val resultEntity = astronauts.results.map { AstronautOverviewMapper().mapResultDtoToEntity(it)
-                }
+                val resultEntity = astronauts.results.map { AstronautOverviewMapper().mapResultDtoToEntity(it) }
                 astronautDb.astronautDao().upsertAll(resultEntity)
             }
 

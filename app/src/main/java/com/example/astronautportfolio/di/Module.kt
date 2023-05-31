@@ -7,8 +7,10 @@ import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.example.astronautportfolio.data.local.database.AstronautDatabase
 import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
+import com.example.astronautportfolio.data.mappers.AstronautDetailMapper
 import com.example.astronautportfolio.data.remote.AstronautRemoteMediator
 import com.example.astronautportfolio.data.remote.AstronautAPI
+import com.example.astronautportfolio.model.detail.AstronautDetail
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -69,21 +71,6 @@ object Module {
     @Singleton
     fun provideAstronautApi(retrofit: Retrofit): AstronautAPI {
         return retrofit.create(AstronautAPI::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideAstronautPager(astronautDb: AstronautDatabase, astronautApi: AstronautAPI): Pager<Int, ResultEntity> {
-        return Pager(
-            config = PagingConfig(pageSize = 10),
-            remoteMediator = AstronautRemoteMediator(
-                astronautDb = astronautDb,
-                astronautApi = astronautApi
-            ),
-            pagingSourceFactory = {
-                astronautDb.astronautDao().pagingSource()
-            }
-        )
     }
 
 }

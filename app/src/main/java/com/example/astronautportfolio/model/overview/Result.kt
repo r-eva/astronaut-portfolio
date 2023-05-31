@@ -3,15 +3,17 @@ package com.example.astronautportfolio.model.overview
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Parcelize
 data class Result(
     @SerialName("age")
     val age: Int,
     @SerialName("agency")
-    val agency: Agency,
+    val agency: @RawValue Agency,
     @SerialName("bio")
     val bio: String,
     @SerialName("date_of_birth")
@@ -41,13 +43,13 @@ data class Result(
     @SerialName("profile_image_thumbnail")
     val profileImageThumbnail: String?,
     @SerialName("status")
-    val status: Status,
+    val status: @RawValue Status,
     @SerialName("twitter")
     val twitter: String?,
     @SerialName("type")
-    val type: Type,
+    val type: @RawValue Type,
     @SerialName("url")
     val url: String,
     @SerialName("wiki")
     val wiki: String?
-)
+): Parcelable

@@ -2,6 +2,7 @@ package com.example.astronautportfolio.data.remote.details
 
 
 import androidx.room.PrimaryKey
+import com.example.astronautportfolio.model.detail.AstronautDetail
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
