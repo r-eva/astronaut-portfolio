@@ -54,6 +54,7 @@ class AstronautRemoteMediator (
                 limit = state.config.pageSize,
                 offset = currentPage
             )
+
             val endOfPaginationReached = astronauts.results.isEmpty()
 
             val prevPage = if (currentPage == 0) null else currentPage - 10

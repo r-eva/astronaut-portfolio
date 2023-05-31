@@ -12,6 +12,7 @@ import com.example.astronautportfolio.model.detail.AstronautDetail
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.astronautportfolio.AstronautsApp
+import com.example.astronautportfolio.data.repository.AstronautDetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 /*class DetailViewModel (
@@ -44,14 +45,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
         }
     }
 }*/
-
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val repository: AstronautRepository
+    private val repository: AstronautDetailRepository,
 ): ViewModel() {
 
-    private val _astronautDetailState = mutableStateOf<AstronautDetail?>(null)
-    val astronautDetailState: State<AstronautDetail?> get() = _astronautDetailState
+    private val _astronautDetailState = mutableStateOf<AstronautDetail<Any?>?>(null)
+    val astronautDetailState: State<AstronautDetail<Any?>?> get() = _astronautDetailState
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: Boolean
@@ -65,8 +65,9 @@ class DetailViewModel @Inject constructor(
         _isLoading.value = true
         viewModelScope.launch {
             try {
-                val astronaut = repository.getAstronautById(id)
+                val astronaut = repository.getAstronautDetail(id)
                 _astronautDetailState.value = astronaut
+                println("astronaut ViewModel: $astronaut")
             } catch (e: Exception) {
                 _error.value = "Error retrieving astronaut details: ${e.message}"
             } finally {

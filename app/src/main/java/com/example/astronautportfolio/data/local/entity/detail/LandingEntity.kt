@@ -13,8 +13,6 @@ data class LandingEntity(
     val destination: String,
     @SerializedName("id")
     val id: Int,
-    @SerializedName("mission_end")
-    val missionEnd: String,
     @SerializedName("spacecraft")
     val spacecraft: SpacecraftEntity,
     @SerializedName("url")

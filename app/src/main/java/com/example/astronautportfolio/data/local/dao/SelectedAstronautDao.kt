@@ -9,8 +9,8 @@ import com.example.astronautportfolio.data.local.entity.paging.PagingRemoteKeysE
 
 @Dao
 interface SelectedAstronautDao {
-    @Query("SELECT * FROM astronaut_detail_selected WHERE id =:id")
-    suspend fun getAstronautDetailById(id: Int): AstronautDetailEntity
+    @Query("SELECT * FROM astronaut_detail_selected")
+    suspend fun getAstronautDetailById(): AstronautDetailEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAstronautDetail(astronaut: AstronautDetailEntity)

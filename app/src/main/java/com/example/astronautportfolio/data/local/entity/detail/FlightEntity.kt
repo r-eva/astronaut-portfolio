@@ -14,7 +14,7 @@ data class FlightEntity(
     @SerializedName("image")
     val image: String,
     @SerializedName("infographic")
-    val infographic: String,
+    val infographic: String?,
     @SerializedName("mission")
     val mission: MissionEntity,
     @SerializedName("name")

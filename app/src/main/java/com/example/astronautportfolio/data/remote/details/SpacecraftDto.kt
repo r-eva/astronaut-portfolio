@@ -12,8 +12,6 @@ data class SpacecraftDto(
     val id: Int,
     @SerializedName("name")
     val name: String,
-    @SerializedName("serial_number")
-    val serialNumber: String,
     @SerializedName("status")
     val status: SpacecraftStatusDto,
     @SerializedName("url")

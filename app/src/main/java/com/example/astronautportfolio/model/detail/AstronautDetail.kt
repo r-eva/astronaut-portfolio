@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AstronautDetail(
+data class AstronautDetail<T>(
     @SerializedName("flights")
     val flights: List<Flight>?,
     @SerializedName("id")

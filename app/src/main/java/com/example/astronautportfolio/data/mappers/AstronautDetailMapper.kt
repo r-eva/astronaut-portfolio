@@ -61,7 +61,6 @@ class AstronautDetailMapper {
         return LandingEntity(
             destination = dto.destination,
             id = dto.id,
-            missionEnd = dto.missionEnd,
             spacecraft = mapSpaceCraftDtoToEntity(dto.spacecraft),
             url = dto.url
         )
@@ -104,7 +103,6 @@ class AstronautDetailMapper {
             description = dto.description,
             id = dto.id,
             name = dto.name,
-            serialNumber = dto.serialNumber,
             status = mapSpaceCraftStatusDtoToEntity(dto.status),
             url = dto.url
         )
@@ -125,7 +123,7 @@ class AstronautDetailMapper {
         )
     }
 
-    fun mapAstronautDetailEntityToModel(entity: AstronautDetailEntity): AstronautDetail {
+    fun mapAstronautDetailEntityToModel(entity: AstronautDetailEntity): AstronautDetail<Any?> {
         return AstronautDetail (
             flights = entity.flights?.map { flight ->
                 mapFlightsEntityToModel(flight)
@@ -156,7 +154,6 @@ class AstronautDetailMapper {
         return Landing(
             destination = entity.destination,
             id = entity.id,
-            missionEnd = entity.missionEnd,
             spacecraft = mapSpaceCraftEntityToModel(entity.spacecraft),
             url = entity.url
         )
@@ -199,7 +196,6 @@ class AstronautDetailMapper {
             description = entity.description,
             id = entity.id,
             name = entity.name,
-            serialNumber = entity.serialNumber,
             status = mapSpaceCraftStatusEntityToModel(entity.status),
             url = entity.url
         )

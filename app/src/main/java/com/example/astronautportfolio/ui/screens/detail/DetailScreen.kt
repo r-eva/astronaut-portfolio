@@ -29,12 +29,13 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.astronautportfolio.model.overview.Result
+import com.example.astronautportfolio.ui.components.Flights
 import com.example.astronautportfolio.ui.components.ProfileImage
 
 @Composable
 fun DetailScreen (id: Int, viewModel: DetailViewModel, data: Result?, paddingValues: PaddingValues,) {
 
-    val astronaut = viewModel.astronautDetailState.value
+    val astronautDetail = viewModel.astronautDetailState.value
 
     LaunchedEffect(id) {
         viewModel.getAstronautDetailById(id)
@@ -42,7 +43,9 @@ fun DetailScreen (id: Int, viewModel: DetailViewModel, data: Result?, paddingVal
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding())
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = paddingValues.calculateTopPadding())
     ) {
         data?.let {
             LazyColumn(
@@ -60,7 +63,8 @@ fun DetailScreen (id: Int, viewModel: DetailViewModel, data: Result?, paddingVal
                     }
                 }
                 item {
-                    astronaut.apply {
+                    astronautDetail?.apply {
+                        this.flights?.let { item -> Flights(flights = item) }
                     }
                 }
             }

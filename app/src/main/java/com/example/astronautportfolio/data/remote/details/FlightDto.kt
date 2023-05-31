@@ -11,7 +11,7 @@ data class FlightDto(
     @SerializedName("image")
     val image: String,
     @SerializedName("infographic")
-    val infographic: String,
+    val infographic: String?,
     @SerializedName("mission")
     val mission: MissionDto,
     @SerializedName("name")
