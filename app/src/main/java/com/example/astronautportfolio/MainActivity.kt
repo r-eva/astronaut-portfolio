@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.astronautportfolio.data.local.database.AstronautDatabase
 import com.example.astronautportfolio.ui.theme.AstronautPortfolioTheme
 import com.example.astronautportfolio.ui.components.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint

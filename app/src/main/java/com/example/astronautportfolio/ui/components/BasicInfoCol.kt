@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.example.astronautportfolio.R
 
 @Composable
-fun BasicInfoCol(name: String, age: Int, modifier: Modifier = Modifier) {
+fun BasicInfoCol(name: String, age: Int, nationality: String, modifier: Modifier = Modifier) {
     Column {
         Text(
             text = name,
@@ -21,6 +21,11 @@ fun BasicInfoCol(name: String, age: Int, modifier: Modifier = Modifier) {
         Text(
             text = "Age: $age",
             style = MaterialTheme.typography.bodyLarge
+        )
+        Text(
+            text = "$nationality",
+            style = MaterialTheme.typography.labelLarge,
+            modifier = modifier.padding(top = dimensionResource(id = R.dimen.padding_extra_small))
         )
     }
 }

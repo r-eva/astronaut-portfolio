@@ -39,7 +39,7 @@ object Module {
             context,
             AstronautDatabase::class.java,
             "astronauts.db"
-        ).build()
+        ).allowMainThreadQueries().build()
     }
 
 
