@@ -1,6 +1,8 @@
 package com.example.astronautportfolio.data.local.database
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.astronautportfolio.data.local.dao.AstronautDao
@@ -26,6 +28,17 @@ import com.example.astronautportfolio.data.util.Converters
 abstract class AstronautDatabase: RoomDatabase() {
     abstract fun astronautDao(): AstronautDao
     abstract fun pagingRemoteKeysDao(): PagingRemoteKeysDao
-
     abstract fun selectedAstronautDao(): SelectedAstronautDao
+
+    companion object {
+        private var dbINSTANCE: AstronautDatabase ? = null
+        fun getAppDB(context: Context): AstronautDatabase {
+            if(dbINSTANCE == null) {
+                dbINSTANCE = Room.databaseBuilder<AstronautDatabase>(
+                    context.applicationContext, AstronautDatabase::class.java, "astronauts.db"
+                ).allowMainThreadQueries().build()
+            }
+            return dbINSTANCE!!
+        }
+    }
 }

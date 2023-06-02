@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.astronautportfolio.data.local.entity.detail.AstronautDetailEntity
 import com.example.astronautportfolio.data.local.entity.paging.PagingRemoteKeysEntity
 
 @Dao
@@ -16,4 +17,5 @@ interface PagingRemoteKeysDao {
 
     @Query("DELETE FROM paging_remote_keys")
     suspend fun deleteAllRemoteKeys()
+
 }
