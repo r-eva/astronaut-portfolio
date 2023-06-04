@@ -14,12 +14,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import com.example.astronautportfolio.model.overview.Result
+import com.example.astronautportfolio.model.Astronaut
 import com.example.astronautportfolio.ui.components.Flights
 import com.example.astronautportfolio.ui.components.ProfileImage
 
 @Composable
-fun DetailScreen (id: Int, viewModel: DetailViewModel, data: Result?, paddingValues: PaddingValues,) {
+fun DetailScreen (id: Int, viewModel: DetailViewModel, data: Astronaut?, paddingValues: PaddingValues,) {
 
     val astronautDetail = viewModel.astronautDetailState.value
 

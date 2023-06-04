@@ -1,5 +1,7 @@
 package com.example.astronautportfolio
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,6 +25,7 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        println("masuk main android")
         super.onCreate(savedInstanceState)
         initVM()
         setContent {
@@ -38,6 +41,6 @@ class MainActivity : ComponentActivity() {
         }
     }
     private fun initVM() {
-        detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+        detailViewModel = ViewModelProvider(this)[DetailViewModel::class.java]
     }
 }

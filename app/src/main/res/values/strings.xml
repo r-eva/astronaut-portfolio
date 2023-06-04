@@ -4,4 +4,5 @@
     <string name="astronauts_detail_photo">Astronauts Profile photo</string>
     <string name="home_nav">Astronauts</string>
     <string name="detail_nav">Details</string>
+    <string name="expand_button_content_description">See more or less information about a dog.</string>
 </resources>

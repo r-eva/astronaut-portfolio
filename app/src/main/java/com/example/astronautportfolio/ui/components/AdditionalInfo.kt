@@ -7,19 +7,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.font.FontWeight
 import com.example.astronautportfolio.R
 
 @Composable
-fun BasicInfoCol(name: String, age: Int, modifier: Modifier = Modifier) {
-    Column {
+fun AdditionalInfo(nationality: String, status: String, modifier: Modifier = Modifier) {
+    Column (
+        modifier = Modifier.padding(start = dimensionResource(R.dimen.padding_medium), bottom = dimensionResource(R.dimen.padding_medium))
+            ){
         Text(
-            text = name,
-            style = MaterialTheme.typography.displayMedium,
+            text = "About",
+            style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.Bold,
             modifier = modifier.padding(top = dimensionResource(id = R.dimen.padding_small))
         )
         Text(
-            text = "Age: $age",
+            text = "$nationality | $status",
             style = MaterialTheme.typography.bodyLarge
         )
     }

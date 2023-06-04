@@ -11,12 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
-import com.example.astronautportfolio.model.detail.Flight
+import com.example.astronautportfolio.model.Flight
 
 @Composable
 fun Flights(flights:List<Flight>){
     Column {
-        for ((index, flight) in flights.withIndex()) {
+        for (flight in flights) {
             Box(
                 modifier = Modifier,
                 contentAlignment = Alignment.Center

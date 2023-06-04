@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "066a917d433678b9787c0ee94ffbf068",
+    "identityHash": "9c19185094c696a7fb2dbcc8d5971022",
     "entities": [
       {
         "tableName": "astronaut",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`age` INTEGER NOT NULL, `agency` TEXT NOT NULL, `bio` TEXT NOT NULL, `dateOfBirth` TEXT, `dateOfDeath` TEXT, `firstFlight` TEXT, `flightsCount` INTEGER NOT NULL, `id` INTEGER NOT NULL, `inSpace` INTEGER NOT NULL, `instagram` TEXT, `landingsCount` INTEGER NOT NULL, `lastFlight` TEXT, `name` TEXT NOT NULL, `nationality` TEXT NOT NULL, `profileImage` TEXT, `profileImageThumbnail` TEXT, `status` TEXT NOT NULL, `twitter` TEXT, `type` TEXT NOT NULL, `url` TEXT NOT NULL, `wiki` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`age` INTEGER NOT NULL, `agency` TEXT NOT NULL, `bio` TEXT NOT NULL, `dateOfBirth` TEXT, `dateOfDeath` TEXT, `firstFlight` TEXT, `flightsCount` INTEGER NOT NULL, `id` INTEGER NOT NULL, `inSpace` INTEGER NOT NULL, `instagram` TEXT, `landingsCount` INTEGER NOT NULL, `lastFlight` TEXT, `name` TEXT NOT NULL, `nationality` TEXT NOT NULL, `profileImage` TEXT, `profileImageThumbnail` TEXT, `status` TEXT NOT NULL, `twitter` TEXT, `type` TEXT NOT NULL, `url` TEXT NOT NULL, `wiki` TEXT, `flights` TEXT, `landings` TEXT, `spacewalks` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "age",
@@ -133,50 +133,30 @@
             "columnName": "wiki",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "flights",
+            "columnName": "flights",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "landings",
+            "columnName": "landings",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "spacewalks",
+            "columnName": "spacewalks",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
             "id"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "astronauts_api_result",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`count` INTEGER NOT NULL, `next` TEXT, `previous` TEXT, `results` TEXT NOT NULL, PRIMARY KEY(`count`))",
-        "fields": [
-          {
-            "fieldPath": "count",
-            "columnName": "count",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "next",
-            "columnName": "next",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "previous",
-            "columnName": "previous",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "results",
-            "columnName": "results",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "count"
           ]
         },
         "indices": [],
@@ -213,50 +193,12 @@
         },
         "indices": [],
         "foreignKeys": []
-      },
-      {
-        "tableName": "astronaut_detail_selected",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`flights` TEXT, `id` INTEGER NOT NULL, `landings` TEXT, `spacewalks` TEXT, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "flights",
-            "columnName": "flights",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "landings",
-            "columnName": "landings",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "spacewalks",
-            "columnName": "spacewalks",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "id"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '066a917d433678b9787c0ee94ffbf068')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9c19185094c696a7fb2dbcc8d5971022')"
     ]
   }
 }

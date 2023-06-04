@@ -8,20 +8,18 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.astronautportfolio.data.repository.AstronautRepository
-import com.example.astronautportfolio.model.detail.AstronautDetail
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.astronautportfolio.AstronautsApp
-import com.example.astronautportfolio.data.repository.AstronautDetailRepository
+import com.example.astronautportfolio.model.Astronaut
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val repository: AstronautDetailRepository,
+    private val repository: AstronautRepository,
 ): ViewModel() {
 
-    private val _astronautDetailState = mutableStateOf<AstronautDetail<Any?>?>(null)
-    val astronautDetailState: State<AstronautDetail<Any?>?> get() = _astronautDetailState
+    private val _astronautDetailState = mutableStateOf<Astronaut?>(null)
+    val astronautDetailState: State<Astronaut?> get() = _astronautDetailState
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: Boolean

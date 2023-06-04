@@ -6,18 +6,40 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
-import com.example.astronautportfolio.data.local.entity.detail.AstronautDetailEntity
-import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.AstronautEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.FlightEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.LandingEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.SpacewalkEntity
 
 @Dao
 interface AstronautDao {
-    @Upsert
-    suspend fun upsertAll(astronautsList: List<ResultEntity>)
 
+    /// Astronaut List DAO
     @Query("SELECT * FROM astronaut")
-    fun pagingSource(): PagingSource<Int, ResultEntity>
+    fun pagingSource(): PagingSource<Int, AstronautEntity>
+
+    @Upsert
+    suspend fun upsertAll(astronautsList: List<AstronautEntity>)
 
     @Query("DELETE FROM astronaut")
     suspend fun clearAll()
+
+
+    ///// Astronaut Detail DAO
+
+    @Query("SELECT * FROM astronaut WHERE id =:id")
+    suspend fun getAstronautDetailById(id: Int): AstronautEntity
+
+    @Query("UPDATE astronaut SET flights=:astronautFlight, landings=:astronautLanding, spacewalks=:astronautSpacewalk WHERE id=:astronautId")
+    suspend fun addAstronautDetail(
+        astronautId: Int,
+        astronautFlight:
+        List<FlightEntity>?,
+        astronautLanding: List<LandingEntity>?,
+        astronautSpacewalk: List<SpacewalkEntity>?
+    )
+
+    @Query("DELETE FROM astronaut WHERE id = :astronautId")
+    suspend fun deleteAstronaut(astronautId: Int)
 
 }

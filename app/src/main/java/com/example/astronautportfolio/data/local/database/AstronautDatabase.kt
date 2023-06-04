@@ -7,20 +7,14 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.astronautportfolio.data.local.dao.AstronautDao
 import com.example.astronautportfolio.data.local.dao.PagingRemoteKeysDao
-import com.example.astronautportfolio.data.local.dao.SelectedAstronautDao
-import com.example.astronautportfolio.data.local.entity.detail.AstronautDetailEntity
-import com.example.astronautportfolio.data.local.entity.overview.AstronautsListEntity
-import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.AstronautEntity
 import com.example.astronautportfolio.data.local.entity.paging.PagingRemoteKeysEntity
-import com.example.astronautportfolio.data.remote.details.AstronautDetailDto
 import com.example.astronautportfolio.data.util.Converters
 
 @Database(
     entities = [
-        ResultEntity::class,
-        AstronautsListEntity::class,
+        AstronautEntity::class,
         PagingRemoteKeysEntity::class,
-        AstronautDetailEntity::class
                ],
     version = 1
 )
@@ -28,7 +22,6 @@ import com.example.astronautportfolio.data.util.Converters
 abstract class AstronautDatabase: RoomDatabase() {
     abstract fun astronautDao(): AstronautDao
     abstract fun pagingRemoteKeysDao(): PagingRemoteKeysDao
-    abstract fun selectedAstronautDao(): SelectedAstronautDao
 
     companion object {
         private var dbINSTANCE: AstronautDatabase ? = null

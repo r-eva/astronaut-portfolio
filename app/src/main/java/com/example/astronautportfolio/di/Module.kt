@@ -2,9 +2,8 @@ package com.example.astronautportfolio.di
 
 import android.app.Application
 import com.example.astronautportfolio.data.local.dao.AstronautDao
-import com.example.astronautportfolio.data.local.dao.SelectedAstronautDao
 import com.example.astronautportfolio.data.local.database.AstronautDatabase
-import com.example.astronautportfolio.data.remote.AstronautAPI
+import com.example.astronautportfolio.data.remote.api.AstronautAPI
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -31,16 +30,9 @@ object Module {
 
     @Singleton
     @Provides
-    fun provideSelectedDao(appDB: AstronautDatabase): SelectedAstronautDao {
-        return appDB.selectedAstronautDao()
-    }
-
-    @Singleton
-    @Provides
     fun provideAstronautDao(appDB: AstronautDatabase): AstronautDao {
         return appDB.astronautDao()
     }
-
 
     @Provides
     @Singleton

@@ -1,45 +1,18 @@
 package com.example.astronautportfolio.data.util
 
 import androidx.room.TypeConverter
-import com.example.astronautportfolio.data.local.entity.detail.FlightEntity
-import com.example.astronautportfolio.data.local.entity.detail.FlightStatusEntity
-import com.example.astronautportfolio.data.local.entity.detail.LandingEntity
-import com.example.astronautportfolio.data.local.entity.detail.MissionEntity
-import com.example.astronautportfolio.data.local.entity.detail.OrbitEntity
-import com.example.astronautportfolio.data.local.entity.detail.SpacecraftStatusEntity
-import com.example.astronautportfolio.data.local.entity.detail.SpacewalkEntity
-import com.example.astronautportfolio.data.local.entity.overview.AgencyEntity
-import com.example.astronautportfolio.data.local.entity.overview.AstronautsListEntity
-import com.example.astronautportfolio.data.local.entity.overview.ResultEntity
-import com.example.astronautportfolio.data.local.entity.overview.StatusEntity
-import com.example.astronautportfolio.data.local.entity.overview.TypeEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.FlightEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.LandingEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.SpacewalkEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.AgencyEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.StatusEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.TypeEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class Converters {
 
     // Astronaut List Converter
-
-    @TypeConverter
-    fun fromAstronautListEntity(value: AstronautsListEntity): String? {
-        return value.let { Gson().toJson(it) }
-    }
-    @TypeConverter
-    fun toAstronautListEntity(value: String): AstronautsListEntity? {
-        val listType = object : TypeToken<AstronautsListEntity?>() {}.type
-        return value.let { Gson().fromJson(it, listType) }
-    }
-
-    @TypeConverter
-    fun fromResultEntity(value: List<ResultEntity>?): String? {
-        return value.let { Gson().toJson(it) }
-    }
-    @TypeConverter
-    fun toResultEntity(value: String): List<ResultEntity>? {
-        val listType = object : TypeToken<List<ResultEntity>?>() {}.type
-        return value.let { Gson().fromJson(it, listType) }
-    }
-
     @TypeConverter
     fun fromAgencyEntity(value: AgencyEntity): String? {
         return value.let { Gson().toJson(it) }
@@ -74,10 +47,13 @@ class Converters {
 
     @TypeConverter
     fun fromFlightEntity(value: List<FlightEntity>?): String? {
+        /// abis selesai call api langsung kesini
+        println("from flight entity $value")
         return value?.let { Gson().toJson(it) }
     }
     @TypeConverter
     fun toFlightEntity(value: String?): List<FlightEntity>? {
+        println("to flight entity $value")
         val listType = object : TypeToken<FlightEntity?>() {}.type
         return value?.let { Gson().fromJson(it, listType) }
     }
@@ -86,6 +62,7 @@ class Converters {
     fun fromLandingEntity(value: List<LandingEntity>?): String? {
         return value?.let { Gson().toJson(it) }
     }
+
     @TypeConverter
     fun toLandingEntity(value: String?): List<LandingEntity>? {
         val listType = object : TypeToken<LandingEntity?>() {}.type
@@ -102,44 +79,29 @@ class Converters {
         return value?.let { Gson().fromJson(it, listType) }
     }
 
-    @TypeConverter
-    fun fromFlightStatusEntity(value: FlightStatusEntity): String {
-        return value.let { Gson().toJson(it) }
-    }
-    @TypeConverter
-    fun toFlightStatusEntityEntity(value: String): FlightStatusEntity? {
-        val listType = object : TypeToken<FlightStatusEntity?>() {}.type
-        return value.let { Gson().fromJson(it, listType) }
-    }
+
+
+    /*@TypeConverter
+    fun fromListFlight(value: List<FlightEntity>?): String = Gson().toJson(value)
 
     @TypeConverter
-    fun fromMissionEntity(value: MissionEntity): String {
-        return value.let { Gson().toJson(it) }
-    }
-    @TypeConverter
-    fun toMissionEntity(value: String): MissionEntity? {
-        val listType = object : TypeToken<MissionEntity?>() {}.type
-        return value.let { Gson().fromJson(it, listType) }
-    }
+    fun toListFlight(value: String) = Gson().fromJson(value, Array<FlightEntity>::class.java).toList()
 
     @TypeConverter
-    fun fromOrbitEntity(value: OrbitEntity): String {
-        return value.let { Gson().toJson(it) }
-    }
-    @TypeConverter
-    fun toOrbitEntity(value: String): OrbitEntity? {
-        val listType = object : TypeToken<OrbitEntity?>() {}.type
-        return value.let { Gson().fromJson(it, listType) }
-    }
+    fun fromListLanding(value: List<LandingEntity>?): String = Gson().toJson(value)
 
     @TypeConverter
-    fun fromSpacecraftStatusEntity(value: SpacecraftStatusEntity): String {
-        return value.let { Gson().toJson(it) }
-    }
+    fun toListLanding(value: String) = Gson().fromJson(value, Array<LandingEntity>::class.java).toList()
+
     @TypeConverter
-    fun toSpacecraftStatusEntity(value: String): SpacecraftStatusEntity? {
-        val listType = object : TypeToken<SpacecraftStatusEntity?>() {}.type
-        return value.let { Gson().fromJson(it, listType) }
-    }
+    fun fromListSpacewalk(value: List<SpacewalkEntity>?): String = Gson().toJson(value)
+
+    @TypeConverter
+    fun toListSpacewalk(value: String) = Gson().fromJson(value, Array<SpacewalkEntity>::class.java).toList()
+
+     */
+
+
+
 
 }
