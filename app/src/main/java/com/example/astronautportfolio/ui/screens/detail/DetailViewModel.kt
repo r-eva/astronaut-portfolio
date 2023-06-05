@@ -33,9 +33,11 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val astronaut = repository.getAstronautDetail(id)
+                println("astronaut get from repo: $astronaut")
                 _astronautDetailState.value = astronaut
             } catch (e: Exception) {
                 _error.value = "Error retrieving astronaut details: ${e.message}"
+                _astronautDetailState.value = null
             } finally {
                 _isLoading.value = false
             }
