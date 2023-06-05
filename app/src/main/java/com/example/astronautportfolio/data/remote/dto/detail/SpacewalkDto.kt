@@ -1,11 +1,9 @@
-package com.example.astronautportfolio.data.local.entity.astronaut
+package com.example.astronautportfolio.data.remote.dto.detail
 
-
-import androidx.room.Entity
 import kotlinx.serialization.Serializable
 
-@Entity
-data class SpacewalkEntity(
+@Serializable
+data class SpacewalkDto(
     val duration: String,
     val end: String,
     val id: Int,

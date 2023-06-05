@@ -1,8 +1,8 @@
-package com.example.astronautportfolio.data.remote.dto
+package com.example.astronautportfolio.data.remote.dto.overview
 
 import kotlinx.serialization.Serializable
 @Serializable
-data class TypeDto(
+data class StatusDto(
     val id: Int,
     val name: String
 )

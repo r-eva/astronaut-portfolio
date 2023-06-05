@@ -1,5 +1,5 @@
 package com.example.astronautportfolio.data.remote.api
-import com.example.astronautportfolio.data.remote.dto.AstronautDto
+import com.example.astronautportfolio.data.remote.dto.overview.AstronautDto
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -3,23 +3,22 @@ package com.example.astronautportfolio.ui.screens.detail
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.astronautportfolio.data.repository.AstronautDetailRepository
 import com.example.astronautportfolio.data.repository.AstronautRepository
+import com.example.astronautportfolio.model.detail.AstronautDetail
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.astronautportfolio.model.Astronaut
+import com.example.astronautportfolio.model.overview.Astronaut
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val repository: AstronautRepository,
+    private val repository: AstronautDetailRepository,
 ): ViewModel() {
 
-    private val _astronautDetailState = mutableStateOf<Astronaut?>(null)
-    val astronautDetailState: State<Astronaut?> get() = _astronautDetailState
+    private val _astronautDetailState = mutableStateOf<AstronautDetail?>(null)
+    val astronautDetailState: State<AstronautDetail?> get() = _astronautDetailState
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: Boolean

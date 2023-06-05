@@ -1,6 +1,11 @@
-package com.example.astronautportfolio.model
+package com.example.astronautportfolio.data.local.entity.astronaut.overview
 
-data class Agency(
+
+import androidx.room.Entity
+import kotlinx.serialization.Serializable
+
+@Entity
+data class AgencyEntity(
     val abbrev: String?,
     val administrator: String?,
     val countryCode: String?,

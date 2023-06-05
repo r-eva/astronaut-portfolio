@@ -7,10 +7,10 @@ import androidx.paging.PagingData
 import com.example.astronautportfolio.data.local.dao.AstronautDao
 import com.example.astronautportfolio.data.remote.api.AstronautAPI
 import com.example.astronautportfolio.data.local.database.AstronautDatabase
-import com.example.astronautportfolio.data.local.entity.astronaut.AstronautEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.overview.AstronautEntity
 import com.example.astronautportfolio.data.mappers.AstronautMapper
 import com.example.astronautportfolio.data.remote.api.AstronautRemoteMediator
-import com.example.astronautportfolio.model.Astronaut
+import com.example.astronautportfolio.model.overview.Astronaut
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -31,27 +31,5 @@ class AstronautRepository @Inject constructor(
                 astronautDb.astronautDao().pagingSource()
             }
         ).flow
-    }
-
-    suspend fun getAstronautDetail(astronautId: Int): Astronaut {
-        try {
-            val astronautEntity = astronautApi.getAstronautDetailById(astronautId)
-            val astronautDtoToEntity = AstronautMapper().mapAstronautDtoToEntity(astronautEntity)
-            astronautDb.astronautDao().addAstronautDetail(
-                astronautId,
-                astronautDtoToEntity.flights,
-                astronautDtoToEntity.landings,
-                astronautDtoToEntity.spacewalks
-            )
-            return AstronautMapper().mapAstronautEntityToAstronaut(astronautDtoToEntity)
-        } catch (e: Exception) {
-            val isAstronautFlightExistOnDB = astronautDb.astronautDao().getAstronautDetailById(astronautId).flights
-            if (isAstronautFlightExistOnDB!= null) {
-                val astronautDetail = astronautDb.astronautDao().getAstronautDetailById(astronautId)
-                return AstronautMapper().mapAstronautEntityToAstronaut(astronautDetail)
-            } else {
-                throw e
-            }
-        }
     }
 }

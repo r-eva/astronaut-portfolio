@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.data.remote.dto
+package com.example.astronautportfolio.data.remote.dto.detail
 
 
 import androidx.room.Embedded

@@ -18,19 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.astronautportfolio.R
 import com.example.astronautportfolio.ui.screens.detail.DetailScreen
 import com.example.astronautportfolio.ui.screens.detail.DetailViewModel
 import com.example.astronautportfolio.ui.screens.home.HomeScreen
-import com.example.astronautportfolio.ui.screens.home.HomeViewModel
-import com.example.astronautportfolio.model.Astronaut
+import com.example.astronautportfolio.model.overview.Astronaut
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api

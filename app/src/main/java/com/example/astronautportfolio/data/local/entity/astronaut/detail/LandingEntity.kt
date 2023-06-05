@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.data.local.entity.astronaut
+package com.example.astronautportfolio.data.local.entity.astronaut.detail
 
 
 import androidx.room.Embedded

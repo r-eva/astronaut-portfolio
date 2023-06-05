@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.astronautportfolio.data.local.database.AstronautDatabase
-import com.example.astronautportfolio.data.local.entity.astronaut.AstronautEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.overview.AstronautEntity
 import com.example.astronautportfolio.data.local.entity.paging.PagingRemoteKeysEntity
 import com.example.astronautportfolio.data.mappers.AstronautMapper
 import retrofit2.HttpException

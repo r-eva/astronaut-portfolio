@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.model
+package com.example.astronautportfolio.model.overview
 
 
 data class Type(

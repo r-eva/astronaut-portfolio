@@ -1,10 +1,11 @@
-package com.example.astronautportfolio.data.local.entity.astronaut
+package com.example.astronautportfolio.data.local.entity.astronaut.overview
 
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
+import com.example.astronautportfolio.data.local.entity.astronaut.detail.FlightEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.detail.LandingEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.detail.SpacewalkEntity
 
 @Entity (tableName = "astronaut")
 data class AstronautEntity(
@@ -29,8 +30,5 @@ data class AstronautEntity(
     val twitter: String?,
     val type: TypeEntity,
     val url: String,
-    val wiki: String?,
-    val flights: List<FlightEntity>?,
-    val landings: List<LandingEntity>?,
-    val spacewalks: List<SpacewalkEntity>?
+    val wiki: String?
 )
