@@ -47,16 +47,12 @@ class Converters {
 
     @TypeConverter
     fun fromFlightEntity(value: List<FlightEntity>?): String? {
-        /// abis selesai call api langsung kesini
-        println("from flight entity $value")
         return value?.let { Gson().toJson(it) }
     }
     @TypeConverter
-    fun toFlightEntity(value: String?): List<FlightEntity>? {
-        println("to flight entity $value")
-        val listType = object : TypeToken<FlightEntity?>() {}.type
-        return value?.let { Gson().fromJson(it, listType) }
-    }
+    fun toFlightEntity(value: String?): List<FlightEntity>? = if(value != null) {
+        Gson().fromJson(value, object : TypeToken<List<FlightEntity>?>() {}.type)
+    } else null
 
     @TypeConverter
     fun fromLandingEntity(value: List<LandingEntity>?): String? {
@@ -64,44 +60,17 @@ class Converters {
     }
 
     @TypeConverter
-    fun toLandingEntity(value: String?): List<LandingEntity>? {
-        val listType = object : TypeToken<LandingEntity?>() {}.type
-        return value?.let { Gson().fromJson(it, listType) }
-    }
+    fun toLandingEntity(value: String?): List<LandingEntity>? = if(value != null) {
+        Gson().fromJson(value, object : TypeToken<List<LandingEntity>?>() {}.type)
+    }else null
 
     @TypeConverter
     fun fromSpacewalkEntity(value: List<SpacewalkEntity>?): String? {
         return value?.let { Gson().toJson(it) }
     }
     @TypeConverter
-    fun toSpacewalkEntity(value: String?): List<SpacewalkEntity>? {
-        val listType = object : TypeToken<SpacewalkEntity?>() {}.type
-        return value?.let { Gson().fromJson(it, listType) }
-    }
-
-
-
-    /*@TypeConverter
-    fun fromListFlight(value: List<FlightEntity>?): String = Gson().toJson(value)
-
-    @TypeConverter
-    fun toListFlight(value: String) = Gson().fromJson(value, Array<FlightEntity>::class.java).toList()
-
-    @TypeConverter
-    fun fromListLanding(value: List<LandingEntity>?): String = Gson().toJson(value)
-
-    @TypeConverter
-    fun toListLanding(value: String) = Gson().fromJson(value, Array<LandingEntity>::class.java).toList()
-
-    @TypeConverter
-    fun fromListSpacewalk(value: List<SpacewalkEntity>?): String = Gson().toJson(value)
-
-    @TypeConverter
-    fun toListSpacewalk(value: String) = Gson().fromJson(value, Array<SpacewalkEntity>::class.java).toList()
-
-     */
-
-
-
+    fun toSpacewalkEntity(value: String?): List<SpacewalkEntity>? = if(value != null) {
+        Gson().fromJson(value, object : TypeToken<List<SpacewalkEntity>?>() {}.type)
+    }else null
 
 }

@@ -28,6 +28,7 @@ class AstronautRemoteMediator (
             val currentPage = when (loadType) {
                 LoadType.REFRESH -> {
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
+                    println(remoteKeys)
                     remoteKeys?.nextPage?.minus(1)?: 0
                 }
                 LoadType.PREPEND -> {
@@ -39,6 +40,7 @@ class AstronautRemoteMediator (
                     prevPage
                 }
                 LoadType.APPEND -> {
+                    println("masuk append")
                     val remoteKeys = getRemoteKeyForLastItem(state)
                     val nextPage = remoteKeys?.nextPage
                         ?: return MediatorResult.Success(
@@ -48,14 +50,10 @@ class AstronautRemoteMediator (
                 }
             }
 
-            println("mau manggil database lagi")
-
             val astronauts = astronautApi.getAstronauts(
                 limit = state.config.pageSize,
                 offset = currentPage
             )
-
-            println("selesai manggil database")
 
             val endOfPaginationReached = astronauts.results.isEmpty()
 
@@ -63,7 +61,6 @@ class AstronautRemoteMediator (
             val nextPage = if (endOfPaginationReached) null else currentPage + 10
 
             astronautDb.withTransaction {
-                println("masukin data ke database")
                 if(loadType == LoadType.REFRESH) {
                     astronautDb.astronautDao().clearAll()
                     pagingRemoteKeysDao.deleteAllRemoteKeys()

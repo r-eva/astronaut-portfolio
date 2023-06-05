@@ -1,5 +1,6 @@
 package com.example.astronautportfolio.ui.screens.home
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,22 +17,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.astronautportfolio.R
-import com.example.astronautportfolio.model.Astronaut
 import com.example.astronautportfolio.ui.components.AstronautItem
 
 @Composable
 fun HomeScreen(
-    astronauts: LazyPagingItems<Astronaut>,
     navController: NavController,
     paddingValues: PaddingValues,
 ) {
-    println("enter homescreen")
+    val viewModel = hiltViewModel<HomeViewModel>()
+    val astronauts = viewModel.astronautPagingFlow.collectAsLazyPagingItems()
+
     val context = LocalContext.current
 
     LaunchedEffect(key1 = astronauts.loadState) {
@@ -53,7 +55,8 @@ fun HomeScreen(
             )
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(top = paddingValues.calculateTopPadding())
                     .background(MaterialTheme.colorScheme.background),
                 verticalArrangement = Arrangement.Center,

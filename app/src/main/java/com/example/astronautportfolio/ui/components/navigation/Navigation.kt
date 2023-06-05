@@ -59,9 +59,7 @@ fun Navigation(navController: NavHostController, detailViewModel: DetailViewMode
                     )
                 },
                 content = {
-                    val viewModel = hiltViewModel<HomeViewModel>()
-                    val astronauts = viewModel.astronautPagingFlow.collectAsLazyPagingItems()
-                    HomeScreen(astronauts, navController, paddingValues = it)
+                    HomeScreen(navController, paddingValues = it)
                 }
             )
         }
