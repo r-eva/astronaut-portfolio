@@ -2,7 +2,24 @@ package com.example.astronautportfolio.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Green10 = Color(0xff003314)
+//Light Theme
+val White = Color(0xFFFFFFFF)
+val Grey100 = Color(0xFFF1F3F4)
+val Cyan900 = Color(0xFF007B83)
+val Cyan700 = Color(0xFF129EAF)
+
+//Dark Theme
+val Grey50 = Color(0xFFF8F9FA)
+val Grey900 = Color(0xFF202124)
+val Grey700 = Color(0xFF5F6368)
+val Green50 = Color(0xFFE6F4EA)
+val Green100 = Color(0xFFCEEAD6)
+
+
+
+// Other Color Reference
+
+/*val Green10 = Color(0xff003314)
 val Green20 = Color(0xff006627)
 val Green30 = Color(0xff00993b)
 val Green40 = Color(0xff00cc4e)
@@ -40,4 +57,4 @@ val GreenGrey30 = Color(0xFF316847)
 val GreenGrey50 = Color(0xFF52ad76)
 val GreenGrey60 = Color(0xFF74be92)
 val GreenGrey80 = Color(0xFFbadec8)
-val GreenGrey90 = Color(0xFFdcefe4)
+val GreenGrey90 = Color(0xFFdcefe4)*/

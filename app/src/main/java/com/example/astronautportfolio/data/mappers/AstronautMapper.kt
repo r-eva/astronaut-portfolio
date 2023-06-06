@@ -1,23 +1,33 @@
 package com.example.astronautportfolio.data.mappers
 
-import com.example.astronautportfolio.data.local.entity.AgencyEntity
-import com.example.astronautportfolio.data.local.entity.ResultEntity
-import com.example.astronautportfolio.data.local.entity.StatusEntity
-import com.example.astronautportfolio.data.local.entity.TypeEntity
-import com.example.astronautportfolio.data.remote.overview.dto.AgencyDto
-import com.example.astronautportfolio.data.remote.overview.dto.ResultDto
-import com.example.astronautportfolio.data.remote.overview.dto.StatusDto
-import com.example.astronautportfolio.data.remote.overview.dto.TypeDto
+import com.example.astronautportfolio.data.local.entity.astronaut.detail.AstronautDetailEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.overview.AgencyEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.overview.AstronautEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.detail.FlightEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.detail.LandingEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.detail.SpacewalkEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.overview.StatusEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.overview.TypeEntity
+import com.example.astronautportfolio.data.remote.dto.detail.AstronautDetailDto
+import com.example.astronautportfolio.data.remote.dto.overview.AgencyDto
+import com.example.astronautportfolio.data.remote.dto.overview.StatusDto
+import com.example.astronautportfolio.data.remote.dto.overview.TypeDto
 import com.example.astronautportfolio.model.overview.Agency
-import com.example.astronautportfolio.model.overview.Result
+import com.example.astronautportfolio.model.overview.Astronaut
 import com.example.astronautportfolio.model.overview.Status
 import com.example.astronautportfolio.model.overview.Type
-
+import com.example.astronautportfolio.data.remote.dto.overview.AstronautDto
+import com.example.astronautportfolio.data.remote.dto.detail.FlightDto
+import com.example.astronautportfolio.data.remote.dto.detail.LandingDto
+import com.example.astronautportfolio.data.remote.dto.detail.SpacewalkDto
+import com.example.astronautportfolio.model.detail.AstronautDetail
+import com.example.astronautportfolio.model.detail.Flight
+import com.example.astronautportfolio.model.detail.Landing
+import com.example.astronautportfolio.model.detail.Spacewalk
 
 class AstronautMapper {
-
-    fun mapResultDtoToEntity(dto: ResultDto): ResultEntity {
-        return ResultEntity(
+    fun mapAstronautDtoToEntity(dto: AstronautDto): AstronautEntity {
+        return AstronautEntity(
             age = dto.age,
             agency = mapAgencyDtoToEntity(dto.agency),
             bio = dto.bio,
@@ -76,8 +86,8 @@ class AstronautMapper {
         )
     }
 
-    fun mapResultEntityToResult(entity: ResultEntity): Result {
-        return Result(
+    fun mapAstronautEntityToAstronaut(entity: AstronautEntity): Astronaut {
+        return Astronaut(
             age = entity.age,
             agency = mapAgencyEntityToAgency(entity.agency),
             bio = entity.bio,
@@ -134,6 +144,103 @@ class AstronautMapper {
             id = dto.id,
             name = dto.name
         )
+    }
+
+    //// Astronaut Detail Mapper
+
+    fun mapAstronautDetailDtoToEntity(dto: AstronautDetailDto): AstronautDetailEntity{
+        return AstronautDetailEntity (
+            flights = dto.flights?.map { flightDto ->
+                mapFlightsDtoToEntity(flightDto)
+            },
+            id = dto.id,
+            landings = dto.landings?.map { landingDto ->
+                mapLandingsDtoToEntity(landingDto)
+            },
+            spacewalks = dto.spacewalks?.map { spacewalkDto ->
+                mapSpaceWalksDtoToEntity(spacewalkDto)
+            }
+        )
+    }
+
+    fun mapFlightsDtoToEntity(dto: FlightDto): FlightEntity {
+        return FlightEntity(
+            id = dto.id,
+            image = dto.image,
+            infographic = dto.infographic,
+            name = dto.name,
+            url = dto.url
+        )
+    }
+
+    fun mapLandingsDtoToEntity(dto: LandingDto): LandingEntity {
+        return LandingEntity(
+            destination = dto.destination,
+            id = dto.id,
+            url = dto.url
+        )
+    }
+
+    fun mapSpaceWalksDtoToEntity(dto: SpacewalkDto): SpacewalkEntity {
+        return SpacewalkEntity(
+            duration = dto.duration,
+            end = dto.end,
+            id = dto.id,
+            location = dto.location,
+            name = dto.name,
+            start = dto.start,
+            url = dto.url
+        )
+
+    }
+
+
+    /// Astronaut Detail Mapper
+
+    fun mapAstronautDetailEntityToModel(entity: AstronautDetailEntity): AstronautDetail {
+        return AstronautDetail (
+            flights = entity.flights?.map { flight ->
+                mapFlightsEntityToModel(flight)
+            },
+            id = entity.id,
+            landings = entity.landings?.map { landing ->
+                mapLandingsEntityToModel(landing)
+            },
+            spacewalks = entity.spacewalks?.map { spacewalk ->
+                mapSpaceWalksEntityToModel(spacewalk)
+            }
+        )
+    }
+
+    fun mapFlightsEntityToModel(entity: FlightEntity): Flight {
+        return Flight(
+            id = entity.id,
+            image = entity.image,
+            infographic = entity.infographic,
+            name = entity.name,
+            url = entity.url
+        )
+    }
+
+    fun mapLandingsEntityToModel(entity: LandingEntity): Landing {
+        return Landing(
+            destination = entity.destination,
+            id = entity.id,
+            url = entity.url
+        )
+    }
+
+    fun mapSpaceWalksEntityToModel(entity: SpacewalkEntity): Spacewalk {
+        return Spacewalk(
+            duration = entity.duration,
+            end = entity.end,
+            id = entity.id,
+            location = entity.location,
+            name = entity.name,
+            start = entity.start,
+            url = entity.url
+        )
+
     }
 
 }

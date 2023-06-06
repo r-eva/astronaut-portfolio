@@ -1,8 +1,9 @@
 package com.example.astronautportfolio.ui.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,33 +12,24 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.example.astronautportfolio.R
-import com.example.astronautportfolio.ui.theme.AstronautPortfolioTheme
 
 @Composable
-fun ImageThumbnail(data: String?, modifier: Modifier = Modifier) {
+fun ProfileImage (image: String?, modifier: Modifier = Modifier){
     AsyncImage(
         model = ImageRequest.Builder(context = LocalContext.current)
-            .data(data)
+            .data(image)
             .crossfade(true)
             .build(),
-        contentDescription = stringResource(id = R.string.astronauts_photo),
+        contentDescription = stringResource(id = R.string.astronauts_detail_photo),
         modifier = modifier
-            .size(dimensionResource(id = R.dimen.thumbnail_image_size))
+            .fillMaxWidth()
+            .height(dimensionResource(id = R.dimen.profile_image_size))
             .padding(dimensionResource(id = R.dimen.padding_small))
-            .clip(RoundedCornerShape(50)),
+            .clip(MaterialTheme.shapes.small),
         contentScale = ContentScale.Crop
     )
-}
-
-@Preview
-@Composable
-fun ImageThumbnailPreview() {
-    AstronautPortfolioTheme() {
-        ImageThumbnail(data = "https://spacelaunchnow-prod-east.nyc3.digitaloceanspaces.com/media/astronaut_images/thomas_pesquet_thumbnail_20220911033657.jpeg")
-    }
 }

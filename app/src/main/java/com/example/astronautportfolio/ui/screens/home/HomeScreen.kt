@@ -1,32 +1,45 @@
 package com.example.astronautportfolio.ui.screens.home
 
+import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.astronautportfolio.R
-import com.example.astronautportfolio.model.overview.Result
 import com.example.astronautportfolio.ui.components.AstronautItem
 
 @Composable
 fun HomeScreen(
-    astronauts: LazyPagingItems<Result>
+    navController: NavController,
+    paddingValues: PaddingValues,
 ) {
+    val viewModel = hiltViewModel<HomeViewModel>()
+    val astronauts = viewModel.astronautPagingFlow.collectAsLazyPagingItems()
+
     val context = LocalContext.current
+
     LaunchedEffect(key1 = astronauts.loadState) {
+        println("masuk launched effect: $astronauts")
         if(astronauts.loadState.refresh is LoadState.Error) {
+            println("masuk launched effect error")
             Toast.makeText(
                 context,
                 "Error: " + (astronauts.loadState.refresh as LoadState.Error).error.message,
@@ -42,7 +55,12 @@ fun HomeScreen(
             )
         } else {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = paddingValues.calculateTopPadding())
+                    .background(MaterialTheme.colorScheme.background),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 items(
                     count = astronauts.itemCount,
@@ -53,18 +71,20 @@ fun HomeScreen(
                     val item = astronauts[index]
                     if (item != null) {
                         AstronautItem(
-                            astronauts = item, modifier = Modifier.padding(
+                            navController = navController,
+                            astronauts = item,
+                            modifier = Modifier.padding(
                                 dimensionResource(id = R.dimen.padding_small)
                             )
                         )
                     }
-                            }
-                            item {
-                                if(astronauts.loadState.append is LoadState.Loading) {
-                                    CircularProgressIndicator()
-                                }
-                            }
-                        }
+                }
+                item {
+                    if(astronauts.loadState.append is LoadState.Loading) {
+                        CircularProgressIndicator()
                     }
                 }
+            }
+        }
+    }
 }

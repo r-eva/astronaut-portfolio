@@ -1,56 +1,47 @@
-package com.example.astronautportfolio.data.remote.overview.dto
+package com.example.astronautportfolio.data.remote.dto.overview
 
 import androidx.room.Embedded
 import androidx.room.PrimaryKey
+import com.example.astronautportfolio.data.remote.dto.detail.FlightDto
+import com.example.astronautportfolio.data.remote.dto.detail.LandingDto
+import com.example.astronautportfolio.data.remote.dto.detail.SpacewalkDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResultDto(
-    @SerialName("age")
+data class AstronautDto(
     @PrimaryKey
     val age: Int,
-    @SerialName("agency")
     @Embedded
     val agency: AgencyDto,
-    @SerialName("bio")
     val bio: String,
     @SerialName("date_of_birth")
-    val dateOfBirth: String?,
+    val dateOfBirth: String? = null,
     @SerialName("date_of_death")
-    val dateOfDeath: String?,
+    val dateOfDeath: String? = null,
     @SerialName("first_flight")
-    val firstFlight: String?,
+    val firstFlight: String? = null,
     @SerialName("flights_count")
     val flightsCount: Int,
-    @SerialName("id")
     val id: Int,
     @SerialName("in_space")
     val inSpace: Boolean,
-    @SerialName("instagram")
-    val instagram: String?,
+    val instagram: String? = null,
     @SerialName("landings_count")
     val landingsCount: Int,
     @SerialName("last_flight")
-    val lastFlight: String?,
-    @SerialName("name")
+    val lastFlight: String? = null,
     val name: String,
-    @SerialName("nationality")
     val nationality: String,
     @SerialName("profile_image")
     val profileImage: String?,
     @SerialName("profile_image_thumbnail")
-    val profileImageThumbnail: String?,
-    @SerialName("status")
+    val profileImageThumbnail: String? = null,
     @Embedded
     val status: StatusDto,
-    @SerialName("twitter")
     val twitter: String?,
-    @SerialName("type")
     @Embedded
     val type: TypeDto,
-    @SerialName("url")
     val url: String,
-    @SerialName("wiki")
-    val wiki: String?
+    val wiki: String? = null
 )
