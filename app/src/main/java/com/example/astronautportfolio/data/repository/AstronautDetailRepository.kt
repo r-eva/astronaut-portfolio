@@ -12,22 +12,22 @@ class AstronautDetailRepository @Inject constructor(
 ){
     suspend fun getAstronautDetail(astronautId: Int): AstronautDetail? {
         try {
-            println("enter get astronaut")
+            println("try to get astronaut from api")
+            val astronautDto = astronautApi.getAstronautDetailById(astronautId)
+            println("astronautEntity: $astronautDto")
+            val astronautDtoToEntity = AstronautMapper().mapAstronautDetailDtoToEntity(astronautDto)
+            astronautDb.astronautDetailDao().addAstronautDetail(astronautDtoToEntity)
+            return AstronautMapper().mapAstronautDetailEntityToModel(astronautDtoToEntity)
+        } catch (e: Exception) {
             val isAstronautExistOnDb = astronautDb.astronautDetailDao().getAstronautDetailById(astronautId)
+            println("is astronaut exist on db: $isAstronautExistOnDb")
             return if(isAstronautExistOnDb.flights != null) {
                 println("astronaut exist on db")
                 AstronautMapper().mapAstronautDetailEntityToModel(isAstronautExistOnDb)
             } else {
-                println("try to get astronaut since it is not exist in database")
-                val astronautDto = astronautApi.getAstronautDetailById(astronautId)
-                println("astronautEntity: $astronautDto")
-                val astronautDtoToEntity = AstronautMapper().mapAstronautDetailDtoToEntity(astronautDto)
-                astronautDb.astronautDetailDao().addAstronautDetail(astronautDtoToEntity)
-                AstronautMapper().mapAstronautDetailEntityToModel(astronautDtoToEntity)
+                throw e
             }
-        } catch (e: Exception) {
-            println("astronaut failed getting data from api and not exist in database")
-            throw e
+
         }
     }
 }
