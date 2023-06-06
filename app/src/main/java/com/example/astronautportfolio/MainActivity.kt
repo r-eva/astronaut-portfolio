@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        println("masuk main android")
         super.onCreate(savedInstanceState)
         initVM()
         setContent {

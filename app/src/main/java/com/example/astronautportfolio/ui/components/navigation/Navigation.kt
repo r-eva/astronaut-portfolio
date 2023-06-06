@@ -31,7 +31,6 @@ import com.example.astronautportfolio.model.overview.Astronaut
 @ExperimentalMaterial3Api
 @Composable
 fun Navigation(navController: NavHostController, detailViewModel: DetailViewModel) {
-    println("masuk navigation")
     NavHost(navController = navController, startDestination = Screen.MainScreen.route ) {
         composable(route = Screen.MainScreen.route) {
             Scaffold(

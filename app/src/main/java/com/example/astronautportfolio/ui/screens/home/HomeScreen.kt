@@ -37,9 +37,7 @@ fun HomeScreen(
     val context = LocalContext.current
 
     LaunchedEffect(key1 = astronauts.loadState) {
-        println("masuk launched effect: $astronauts")
         if(astronauts.loadState.refresh is LoadState.Error) {
-            println("masuk launched effect error")
             Toast.makeText(
                 context,
                 "Error: " + (astronauts.loadState.refresh as LoadState.Error).error.message,
