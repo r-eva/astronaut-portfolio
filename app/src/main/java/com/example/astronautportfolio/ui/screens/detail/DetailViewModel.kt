@@ -36,6 +36,7 @@ class DetailViewModel @Inject constructor(
                 println("astronaut get from repo: $astronaut")
                 _astronautDetailState.value = astronaut
             } catch (e: Exception) {
+                println("failed to get astronaut from API and astronaut detail not exist in db")
                 _error.value = "Error retrieving astronaut details: ${e.message}"
                 _astronautDetailState.value = null
             } finally {

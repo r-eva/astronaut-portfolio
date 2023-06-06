@@ -28,7 +28,6 @@ class AstronautRemoteMediator (
             val currentPage = when (loadType) {
                 LoadType.REFRESH -> {
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                    println(remoteKeys)
                     remoteKeys?.nextPage?.minus(1)?: 0
                 }
                 LoadType.PREPEND -> {
@@ -40,7 +39,6 @@ class AstronautRemoteMediator (
                     prevPage
                 }
                 LoadType.APPEND -> {
-                    println("masuk append")
                     val remoteKeys = getRemoteKeyForLastItem(state)
                     val nextPage = remoteKeys?.nextPage
                         ?: return MediatorResult.Success(
