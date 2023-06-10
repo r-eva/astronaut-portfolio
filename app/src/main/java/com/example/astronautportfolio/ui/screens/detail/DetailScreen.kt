@@ -14,12 +14,16 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import com.example.astronautportfolio.model.overview.Astronaut
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.astronautportfolio.model.Astronaut
 import com.example.astronautportfolio.ui.components.Flights
 import com.example.astronautportfolio.ui.components.ProfileImage
+import com.example.astronautportfolio.ui.screens.home.HomeViewModel
 
 @Composable
-fun DetailScreen (id: Int, viewModel: DetailViewModel, data: Astronaut?, paddingValues: PaddingValues,) {
+fun DetailScreen (id: Int, data: Astronaut?, paddingValues: PaddingValues,) {
+
+    val viewModel = hiltViewModel<DetailViewModel>()
 
     val astronautDetail = viewModel.astronautDetailState.value
 

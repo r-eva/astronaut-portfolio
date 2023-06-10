@@ -1,29 +1,26 @@
 package com.example.astronautportfolio.data.mappers
 
-import com.example.astronautportfolio.data.local.entity.astronaut.detail.AstronautDetailEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.overview.AgencyEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.overview.AstronautEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.detail.FlightEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.detail.LandingEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.detail.SpacewalkEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.overview.StatusEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.overview.TypeEntity
-import com.example.astronautportfolio.data.remote.dto.detail.AstronautDetailDto
-import com.example.astronautportfolio.data.remote.dto.overview.AgencyDto
-import com.example.astronautportfolio.data.remote.dto.overview.StatusDto
-import com.example.astronautportfolio.data.remote.dto.overview.TypeDto
-import com.example.astronautportfolio.model.overview.Agency
-import com.example.astronautportfolio.model.overview.Astronaut
-import com.example.astronautportfolio.model.overview.Status
-import com.example.astronautportfolio.model.overview.Type
-import com.example.astronautportfolio.data.remote.dto.overview.AstronautDto
-import com.example.astronautportfolio.data.remote.dto.detail.FlightDto
-import com.example.astronautportfolio.data.remote.dto.detail.LandingDto
-import com.example.astronautportfolio.data.remote.dto.detail.SpacewalkDto
-import com.example.astronautportfolio.model.detail.AstronautDetail
-import com.example.astronautportfolio.model.detail.Flight
-import com.example.astronautportfolio.model.detail.Landing
-import com.example.astronautportfolio.model.detail.Spacewalk
+import com.example.astronautportfolio.data.local.entity.astronaut.AgencyEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.AstronautEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.FlightEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.LandingEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.SpacewalkEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.StatusEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.TypeEntity
+import com.example.astronautportfolio.data.remote.dto.AgencyDto
+import com.example.astronautportfolio.data.remote.dto.StatusDto
+import com.example.astronautportfolio.data.remote.dto.TypeDto
+import com.example.astronautportfolio.model.Agency
+import com.example.astronautportfolio.model.Astronaut
+import com.example.astronautportfolio.model.Status
+import com.example.astronautportfolio.model.Type
+import com.example.astronautportfolio.data.remote.dto.AstronautDto
+import com.example.astronautportfolio.data.remote.dto.FlightDto
+import com.example.astronautportfolio.data.remote.dto.LandingDto
+import com.example.astronautportfolio.data.remote.dto.SpacewalkDto
+import com.example.astronautportfolio.model.Flight
+import com.example.astronautportfolio.model.Landing
+import com.example.astronautportfolio.model.Spacewalk
 
 class AstronautMapper {
     fun mapAstronautDtoToEntity(dto: AstronautDto): AstronautEntity {
@@ -48,7 +45,16 @@ class AstronautMapper {
             twitter = dto.twitter,
             type = mapTypeDtoToEntity(dto.type),
             url = dto.url,
-            wiki = dto.wiki
+            wiki = dto.wiki,
+            flights = dto.flights?.map { flightDto ->
+                mapFlightsDtoToEntity(flightDto)
+            },
+            landings = dto.landings?.map { landingDto ->
+                mapLandingsDtoToEntity(landingDto)
+            },
+            spacewalks = dto.spacewalks?.map { spacewalkDto ->
+                mapSpaceWalksDtoToEntity(spacewalkDto)
+            }
         )
     }
 
@@ -108,7 +114,16 @@ class AstronautMapper {
             twitter = entity.twitter,
             type = mapTypeEntityToType(entity.type),
             url = entity.url,
-            wiki = entity.wiki
+            wiki = entity.wiki,
+            flights = entity.flights?.map { flight ->
+                mapFlightsEntityToModel(flight)
+            },
+            landings = entity.landings?.map { landing ->
+                mapLandingsEntityToModel(landing)
+            },
+            spacewalks = entity.spacewalks?.map { spacewalk ->
+                mapSpaceWalksEntityToModel(spacewalk)
+            }
         )
     }
 
@@ -148,21 +163,6 @@ class AstronautMapper {
 
     //// Astronaut Detail Mapper
 
-    fun mapAstronautDetailDtoToEntity(dto: AstronautDetailDto): AstronautDetailEntity{
-        return AstronautDetailEntity (
-            flights = dto.flights?.map { flightDto ->
-                mapFlightsDtoToEntity(flightDto)
-            },
-            id = dto.id,
-            landings = dto.landings?.map { landingDto ->
-                mapLandingsDtoToEntity(landingDto)
-            },
-            spacewalks = dto.spacewalks?.map { spacewalkDto ->
-                mapSpaceWalksDtoToEntity(spacewalkDto)
-            }
-        )
-    }
-
     fun mapFlightsDtoToEntity(dto: FlightDto): FlightEntity {
         return FlightEntity(
             id = dto.id,
@@ -194,23 +194,7 @@ class AstronautMapper {
 
     }
 
-
     /// Astronaut Detail Mapper
-
-    fun mapAstronautDetailEntityToModel(entity: AstronautDetailEntity): AstronautDetail {
-        return AstronautDetail (
-            flights = entity.flights?.map { flight ->
-                mapFlightsEntityToModel(flight)
-            },
-            id = entity.id,
-            landings = entity.landings?.map { landing ->
-                mapLandingsEntityToModel(landing)
-            },
-            spacewalks = entity.spacewalks?.map { spacewalk ->
-                mapSpaceWalksEntityToModel(spacewalk)
-            }
-        )
-    }
 
     fun mapFlightsEntityToModel(entity: FlightEntity): Flight {
         return Flight(

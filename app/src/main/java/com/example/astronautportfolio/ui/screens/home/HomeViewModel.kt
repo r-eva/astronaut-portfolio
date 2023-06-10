@@ -14,11 +14,5 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     repository: AstronautRepository
 ): ViewModel() {
-    var astronautPagingFlow = repository.provideAstronautPager()
-        .map { pagingData ->
-            pagingData.map {
-                AstronautMapper().mapAstronautEntityToAstronaut(it)
-            }
-        }
-        .cachedIn(viewModelScope)
+    var astronautPagingFlow = repository.provideAstronautPager().cachedIn(viewModelScope)
 }

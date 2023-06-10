@@ -1,12 +1,12 @@
 package com.example.astronautportfolio.data.util
 
 import androidx.room.TypeConverter
-import com.example.astronautportfolio.data.local.entity.astronaut.detail.FlightEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.detail.LandingEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.detail.SpacewalkEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.overview.AgencyEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.overview.StatusEntity
-import com.example.astronautportfolio.data.local.entity.astronaut.overview.TypeEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.FlightEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.LandingEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.SpacewalkEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.AgencyEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.StatusEntity
+import com.example.astronautportfolio.data.local.entity.astronaut.TypeEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

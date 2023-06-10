@@ -1,10 +1,7 @@
-package com.example.astronautportfolio.model.overview
+package com.example.astronautportfolio.model
 
 
 import android.os.Parcelable
-import com.example.astronautportfolio.model.detail.Flight
-import com.example.astronautportfolio.model.detail.Landing
-import com.example.astronautportfolio.model.detail.Spacewalk
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -30,5 +27,8 @@ data class Astronaut(
     val twitter: String?,
     val type: @RawValue Type,
     val url: String,
-    val wiki: String?
+    val wiki: String?,
+    val flights: @RawValue List<Flight>? = null,
+    val landings: @RawValue List<Landing>? = null,
+    val spacewalks: @RawValue List<Spacewalk>? = null
 ): Parcelable
