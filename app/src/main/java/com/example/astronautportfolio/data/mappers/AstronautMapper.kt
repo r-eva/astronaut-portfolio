@@ -21,8 +21,9 @@ import com.example.astronautportfolio.data.remote.dto.SpacewalkDto
 import com.example.astronautportfolio.model.Flight
 import com.example.astronautportfolio.model.Landing
 import com.example.astronautportfolio.model.Spacewalk
+import javax.inject.Inject
 
-class AstronautMapper {
+class AstronautMapper @Inject constructor() {
     fun mapAstronautDtoToEntity(dto: AstronautDto): AstronautEntity {
         return AstronautEntity(
             age = dto.age,

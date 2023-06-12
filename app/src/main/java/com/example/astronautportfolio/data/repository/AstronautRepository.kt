@@ -1,15 +1,12 @@
 package com.example.astronautportfolio.data.repository
 
-import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.astronautportfolio.data.remote.api.AstronautAPI
 import com.example.astronautportfolio.data.local.database.AstronautDatabase
-import com.example.astronautportfolio.data.local.entity.astronaut.AstronautEntity
 import com.example.astronautportfolio.data.mappers.AstronautMapper
 import com.example.astronautportfolio.data.remote.api.AstronautRemoteMediator
 import com.example.astronautportfolio.model.Astronaut
@@ -20,6 +17,7 @@ import javax.inject.Inject
 class AstronautRepository @Inject constructor(
     private val astronautApi: AstronautAPI,
     private val astronautDb: AstronautDatabase,
+    private val astronautMapper: AstronautMapper = AstronautMapper()
 ) {
     @OptIn(ExperimentalPagingApi::class)
     fun provideAstronautPager(): Flow<PagingData<Astronaut>> {
@@ -34,7 +32,7 @@ class AstronautRepository @Inject constructor(
             }
         ).flow.map { pagingData ->
             pagingData.map {
-                AstronautMapper().mapAstronautEntityToAstronaut(it)
+                astronautMapper.mapAstronautEntityToAstronaut(it)
             }
         }
     }
@@ -44,20 +42,20 @@ class AstronautRepository @Inject constructor(
             println("try to get astronaut from api")
             val astronautDto = astronautApi.getAstronautDetailById(astronautId)
             println("astronautEntity: $astronautDto")
-            val astronautDtoToEntity = AstronautMapper().mapAstronautDtoToEntity(astronautDto)
+            val astronautDtoToEntity = astronautMapper.mapAstronautDtoToEntity(astronautDto)
             astronautDb.astronautDao().addAstronautDetail(
                 astronautId = astronautId,
                 astronautFlight = astronautDtoToEntity.flights,
                 astronautLanding = astronautDtoToEntity.landings,
                 astronautSpacewalk = astronautDtoToEntity.spacewalks
             )
-            return AstronautMapper().mapAstronautEntityToAstronaut(astronautDtoToEntity)
+            return astronautMapper.mapAstronautEntityToAstronaut(astronautDtoToEntity)
         } catch (e: Exception) {
             val isAstronautExistOnDb = astronautDb.astronautDao().getAstronautDetailById(astronautId)
             println("is astronautDetail exist on db: ${isAstronautExistOnDb.flights}")
             return if(isAstronautExistOnDb.flights != null) {
                 println("astronaut exist on db")
-                AstronautMapper().mapAstronautEntityToAstronaut(isAstronautExistOnDb)
+                astronautMapper.mapAstronautEntityToAstronaut(isAstronautExistOnDb)
             } else {
                 throw e
             }

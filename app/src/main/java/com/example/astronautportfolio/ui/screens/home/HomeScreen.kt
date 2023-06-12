@@ -99,6 +99,7 @@ fun HomeScreen(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
@@ -125,7 +126,10 @@ fun HomeScreenPreview() {
                 )
             },
             content = {
-                HomeScreen(rememberNavController(), paddingValues = it)
+                Text(
+                    stringResource(R.string.home_nav),
+                    modifier = Modifier.padding(it)
+                )
             }
         )
     }
