@@ -19,10 +19,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,12 +32,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.astronautportfolio.R
+import com.example.astronautportfolio.data.local.entity.astronaut.FakeAstronautData
+import com.example.astronautportfolio.model.Astronaut
 import com.example.astronautportfolio.ui.components.AstronautItem
 import com.example.astronautportfolio.ui.theme.AstronautPortfolioTheme
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun HomeScreen(
@@ -44,7 +51,18 @@ fun HomeScreen(
 ) {
 
     val viewModel = hiltViewModel<HomeViewModel>()
-    val astronauts = viewModel.astronautPagingFlow.collectAsLazyPagingItems()
+    val astronauts = viewModel.astronautPagingFlow
+    AstronautListLayout(paddingValues, astronauts, navController)
+}
+
+@Composable
+fun AstronautListLayout(
+    paddingValues: PaddingValues,
+    astronautsFlow: Flow<PagingData<Astronaut>>,
+    navController: NavController,
+    preview: Boolean = false
+) {
+    val astronauts = astronautsFlow.collectAsLazyPagingItems()
 
     val context = LocalContext.current
 
@@ -59,7 +77,7 @@ fun HomeScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if(astronauts.loadState.refresh is LoadState.Loading) {
+        if(!preview && astronauts.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
@@ -76,7 +94,7 @@ fun HomeScreen(
                     count = astronauts.itemCount,
                     key = astronauts.itemKey(),
                     contentType = astronauts.itemContentType(
-                        )
+                    )
                 ) { index ->
                     val item = astronauts[index]
                     if (item != null) {
@@ -97,6 +115,7 @@ fun HomeScreen(
             }
         }
     }
+
 }
 
 
@@ -125,11 +144,19 @@ fun HomeScreenPreview() {
                         .background(color = MaterialTheme.colorScheme.primary)
                 )
             },
-            content = {
-                Text(
-                    stringResource(R.string.home_nav),
-                    modifier = Modifier.padding(it)
-                )
+            content = { paddingValues ->
+                val fakeAstronautData = List(size = 10){ FakeAstronautData }
+                val pagingData = PagingData.from(fakeAstronautData)
+                val fakeDataFlow = MutableStateFlow(pagingData)
+
+                Text(text = fakeAstronautData.size.toString())
+
+                CompositionLocalProvider(
+                    LocalInspectionMode provides true,
+                ) {
+                    AstronautListLayout(paddingValues = paddingValues, astronautsFlow = fakeDataFlow, navController = rememberNavController(), preview = true)
+                }
+
             }
         )
     }

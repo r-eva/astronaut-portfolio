@@ -16,6 +16,9 @@ interface AstronautDao {
     @Query("SELECT * FROM astronaut")
     fun pagingSource(): PagingSource<Int, AstronautEntity>
 
+    @Query("SELECT * FROM astronaut")
+    fun getAllAstronautFromDb(): List<AstronautEntity>
+
     @Upsert
     suspend fun upsertAll(astronautsList: List<AstronautEntity>)
 

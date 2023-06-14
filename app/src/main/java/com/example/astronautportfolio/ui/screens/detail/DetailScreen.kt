@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,14 +27,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.astronautportfolio.R
+import com.example.astronautportfolio.data.local.entity.astronaut.FakeAstronautData
 import com.example.astronautportfolio.model.Astronaut
 import com.example.astronautportfolio.ui.components.Flights
 import com.example.astronautportfolio.ui.components.ProfileImage
-import com.example.astronautportfolio.ui.screens.home.HomeViewModel
 import com.example.astronautportfolio.ui.theme.AstronautPortfolioTheme
 
 @Composable
-fun DetailScreen (id: Int, data: Astronaut?, paddingValues: PaddingValues,) {
+fun DetailScreen (id: Int, data: Astronaut?, paddingValues: PaddingValues) {
 
     val viewModel = hiltViewModel<DetailViewModel>()
 
@@ -46,6 +44,11 @@ fun DetailScreen (id: Int, data: Astronaut?, paddingValues: PaddingValues,) {
         viewModel.getAstronautDetailById(id)
     }
 
+    DetailLayout(data = data, paddingValues = paddingValues, astronautDetail = astronautDetail)
+}
+
+@Composable
+fun DetailLayout ( data: Astronaut?, paddingValues: PaddingValues, astronautDetail: Astronaut?) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -92,9 +95,9 @@ fun DetailScreen (id: Int, data: Astronaut?, paddingValues: PaddingValues,) {
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showBackground = true)
 @Composable
-fun DetailScreenPreview() {
+fun DetailLayoutScreenPreview() {
     AstronautPortfolioTheme {
         val navController = rememberNavController()
         Scaffold(
@@ -115,10 +118,8 @@ fun DetailScreenPreview() {
                 )
             },
             content = {
-                Text(
-                    stringResource(R.string.home_nav),
-                    modifier = Modifier.padding(it)
-                )
+                val fakeAstronautData = FakeAstronautData
+                DetailLayout(data = fakeAstronautData, paddingValues = it, astronautDetail = fakeAstronautData)
             }
         )
     }

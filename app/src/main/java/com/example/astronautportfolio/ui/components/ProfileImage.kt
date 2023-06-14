@@ -1,5 +1,7 @@
 package com.example.astronautportfolio.ui.components
 
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -10,12 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.astronautportfolio.R
+import com.example.astronautportfolio.ui.theme.AstronautPortfolioTheme
 
 @Composable
 fun ProfileImage (image: String?, modifier: Modifier = Modifier){
@@ -24,6 +29,7 @@ fun ProfileImage (image: String?, modifier: Modifier = Modifier){
             .data(image)
             .crossfade(true)
             .build(),
+        placeholder = DebugPlaceholder(debugPreview = R.drawable.astronaut_profile_placeholder),
         contentDescription = stringResource(id = R.string.astronauts_detail_photo),
         modifier = modifier
             .fillMaxWidth()
@@ -32,4 +38,13 @@ fun ProfileImage (image: String?, modifier: Modifier = Modifier){
             .clip(MaterialTheme.shapes.small),
         contentScale = ContentScale.Crop
     )
+}
+
+
+@Preview
+@Composable
+fun ProfileImagePreview() {
+    AstronautPortfolioTheme() {
+        ProfileImage(image = "https://spacelaunchnow-prod-east.nyc3.digitaloceanspaces.com/media/astronaut_images/thomas_pesquet_thumbnail_20220911033657.jpeg")
+    }
 }

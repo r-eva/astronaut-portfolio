@@ -1,5 +1,6 @@
 package com.example.astronautportfolio.ui.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
@@ -25,6 +28,7 @@ fun ImageThumbnail(data: String?, modifier: Modifier = Modifier) {
             .data(data)
             .crossfade(true)
             .build(),
+        placeholder = DebugPlaceholder(debugPreview = R.drawable.image_thumbnail),
         contentDescription = stringResource(id = R.string.astronauts_photo),
         modifier = modifier
             .size(dimensionResource(id = R.dimen.thumbnail_image_size))
@@ -38,6 +42,6 @@ fun ImageThumbnail(data: String?, modifier: Modifier = Modifier) {
 @Composable
 fun ImageThumbnailPreview() {
     AstronautPortfolioTheme() {
-        ImageThumbnail(data = "https://spacelaunchnow-prod-east.nyc3.digitaloceanspaces.com/media/astronaut_images/thomas_pesquet_thumbnail_20220911033657.jpeg")
+        ProfileImage(image = "https://spacelaunchnow-prod-east.nyc3.digitaloceanspaces.com/media/astronaut_images/thomas_pesquet_thumbnail_20220911033657.jpeg")
     }
 }
