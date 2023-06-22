@@ -24,7 +24,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.astronautportfolio.R
-import com.example.astronautportfolio.model.overview.Astronaut
+import com.example.astronautportfolio.model.Astronaut
 import com.example.astronautportfolio.ui.components.navigation.Screen
 
 @Composable

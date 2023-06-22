@@ -1,8 +1,6 @@
 package com.example.astronautportfolio.data.remote.api
 
-import com.example.astronautportfolio.data.remote.dto.detail.AstronautDetailDto
-import com.example.astronautportfolio.data.remote.dto.overview.AstronautDto
-import com.example.astronautportfolio.model.detail.AstronautDetail
+import com.example.astronautportfolio.data.remote.dto.AstronautDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,7 +15,7 @@ interface AstronautAPI {
     @GET("astronaut/{id}")
     suspend fun getAstronautDetailById(
         @Path("id") id: Int
-    ): AstronautDetailDto
+    ): AstronautDto
 
     companion object {
         const val BaseURL = "https://ll.thespacedevs.com/2.2.0/"

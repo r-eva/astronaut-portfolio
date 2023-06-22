@@ -1,10 +1,7 @@
-package com.example.astronautportfolio.data.remote.dto.overview
+package com.example.astronautportfolio.data.remote.dto
 
 import androidx.room.Embedded
 import androidx.room.PrimaryKey
-import com.example.astronautportfolio.data.remote.dto.detail.FlightDto
-import com.example.astronautportfolio.data.remote.dto.detail.LandingDto
-import com.example.astronautportfolio.data.remote.dto.detail.SpacewalkDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -43,5 +40,8 @@ data class AstronautDto(
     @Embedded
     val type: TypeDto,
     val url: String,
-    val wiki: String? = null
+    val wiki: String? = null,
+    val flights: List<FlightDto>? = null,
+    val landings: List<LandingDto>? = null,
+    val spacewalks: List<SpacewalkDto>? = null
 )

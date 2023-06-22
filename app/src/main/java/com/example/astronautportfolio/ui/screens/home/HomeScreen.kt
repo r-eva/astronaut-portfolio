@@ -1,38 +1,68 @@
 package com.example.astronautportfolio.ui.screens.home
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.astronautportfolio.R
+import com.example.astronautportfolio.data.local.entity.astronaut.FakeAstronautData
+import com.example.astronautportfolio.model.Astronaut
 import com.example.astronautportfolio.ui.components.AstronautItem
+import com.example.astronautportfolio.ui.theme.AstronautPortfolioTheme
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun HomeScreen(
     navController: NavController,
     paddingValues: PaddingValues,
 ) {
+
     val viewModel = hiltViewModel<HomeViewModel>()
-    val astronauts = viewModel.astronautPagingFlow.collectAsLazyPagingItems()
+    val astronauts = viewModel.astronautPagingFlow
+    AstronautListLayout(paddingValues, astronauts, navController)
+}
+
+@Composable
+fun AstronautListLayout(
+    paddingValues: PaddingValues,
+    astronautsFlow: Flow<PagingData<Astronaut>>,
+    navController: NavController,
+    preview: Boolean = false
+) {
+    val astronauts = astronautsFlow.collectAsLazyPagingItems()
 
     val context = LocalContext.current
 
@@ -47,7 +77,7 @@ fun HomeScreen(
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        if(astronauts.loadState.refresh is LoadState.Loading) {
+        if(!preview && astronauts.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(
                 modifier = Modifier.align(Alignment.Center)
             )
@@ -64,7 +94,7 @@ fun HomeScreen(
                     count = astronauts.itemCount,
                     key = astronauts.itemKey(),
                     contentType = astronauts.itemContentType(
-                        )
+                    )
                 ) { index ->
                     val item = astronauts[index]
                     if (item != null) {
@@ -84,5 +114,50 @@ fun HomeScreen(
                 }
             }
         }
+    }
+
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    AstronautPortfolioTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            stringResource(R.string.home_nav),
+                            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
+                        )
+                    },
+                    navigationIcon = {
+                        Icon(imageVector = Icons.Default.Star,
+                            contentDescription = "Menu Icon",
+                            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_small))
+                        )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = MaterialTheme.colorScheme.primary)
+                )
+            },
+            content = { paddingValues ->
+                val fakeAstronautData = List(size = 10){ FakeAstronautData }
+                val pagingData = PagingData.from(fakeAstronautData)
+                val fakeDataFlow = MutableStateFlow(pagingData)
+
+                Text(text = fakeAstronautData.size.toString())
+
+                CompositionLocalProvider(
+                    LocalInspectionMode provides true,
+                ) {
+                    AstronautListLayout(paddingValues = paddingValues, astronautsFlow = fakeDataFlow, navController = rememberNavController(), preview = true)
+                }
+
+            }
+        )
     }
 }

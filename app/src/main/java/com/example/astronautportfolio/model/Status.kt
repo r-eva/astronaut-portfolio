@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.model.overview
+package com.example.astronautportfolio.model
 
 data class Status(
     val id: Int,

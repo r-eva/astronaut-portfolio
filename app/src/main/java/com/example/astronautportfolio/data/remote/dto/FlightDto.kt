@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.data.remote.dto.detail
+package com.example.astronautportfolio.data.remote.dto
 
 import androidx.room.Embedded
 import kotlinx.serialization.Serializable

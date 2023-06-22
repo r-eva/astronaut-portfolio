@@ -23,14 +23,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.astronautportfolio.R
 import com.example.astronautportfolio.ui.screens.detail.DetailScreen
-import com.example.astronautportfolio.ui.screens.detail.DetailViewModel
 import com.example.astronautportfolio.ui.screens.home.HomeScreen
-import com.example.astronautportfolio.model.overview.Astronaut
+import com.example.astronautportfolio.model.Astronaut
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @ExperimentalMaterial3Api
 @Composable
-fun Navigation(navController: NavHostController, detailViewModel: DetailViewModel) {
+fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.MainScreen.route ) {
         composable(route = Screen.MainScreen.route) {
             Scaffold(
@@ -78,8 +77,7 @@ fun Navigation(navController: NavHostController, detailViewModel: DetailViewMode
                 content = {
                     val astronautData = navController.previousBackStackEntry?.savedStateHandle?.get<Astronaut>("astronaut")
                     DetailScreen(
-                        id = backStackEntry.arguments?.getString("id")?.toInt() ?: 1,
-                        detailViewModel, astronautData, paddingValues = it)
+                        id = backStackEntry.arguments?.getString("id")?.toInt() ?: 1, astronautData, paddingValues = it)
                 }
             )
         }

@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.data.remote.dto.overview
+package com.example.astronautportfolio.data.remote.dto
 
 
 import kotlinx.serialization.SerialName

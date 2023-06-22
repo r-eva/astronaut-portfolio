@@ -4,21 +4,19 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.astronautportfolio.data.repository.AstronautDetailRepository
 import com.example.astronautportfolio.data.repository.AstronautRepository
-import com.example.astronautportfolio.model.detail.AstronautDetail
+import com.example.astronautportfolio.model.Astronaut
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.astronautportfolio.model.overview.Astronaut
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val repository: AstronautDetailRepository,
+    private val repository: AstronautRepository,
 ): ViewModel() {
 
-    private val _astronautDetailState = mutableStateOf<AstronautDetail?>(null)
-    val astronautDetailState: State<AstronautDetail?> get() = _astronautDetailState
+    private val _astronautDetailState = mutableStateOf<Astronaut?>(null)
+    val astronautDetailState: State<Astronaut?> get() = _astronautDetailState
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: Boolean
@@ -33,7 +31,6 @@ class DetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val astronaut = repository.getAstronautDetail(id)
-                println("astronaut get from repo: $astronaut")
                 _astronautDetailState.value = astronaut
             } catch (e: Exception) {
                 println("failed to get astronaut from API and astronaut detail not exist in db")

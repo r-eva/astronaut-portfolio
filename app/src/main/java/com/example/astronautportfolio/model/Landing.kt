@@ -1,4 +1,4 @@
-package com.example.astronautportfolio.model.detail
+package com.example.astronautportfolio.model
 
 data class Landing(
     val destination: String,
